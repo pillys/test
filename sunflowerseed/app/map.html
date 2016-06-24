@@ -7,9 +7,6 @@
 body, html {
   margin:0;
 }
-#mapbox {
-  height: 100%;
-}
 </style>
 <title>地理位置</title>
 </head>
@@ -18,7 +15,6 @@ body, html {
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sQnBbFYNEFNDt0gw7OaDB2V09TOwjp4N"></script>
 <script type="text/javascript">
   var height = (document.documentElement || document.body).clientHeight || window.screen.availHeight;
-  alert(height);
   document.getElementById('mapbox').style.height = height + 'px';
   // 百度地图API功能
   var map = new BMap.Map("mapbox");
