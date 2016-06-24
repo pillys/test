@@ -8,18 +8,35 @@ body, html {
   margin:0;
 }
 #mapbox {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
   height: 100%;
-  border: 1px solid #f00;
-  background-color: #000000;
 }
 </style>
 <title>地理位置</title>
 </head>
 <body>
-<div id="mapbox">444</div>
+<div id="mapbox">222</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sQnBbFYNEFNDt0gw7OaDB2V09TOwjp4N"></script>
+<script type="text/javascript">
+  var height = (document.documentElement || document.body).clientHeight || window.screen.availHeight;
+  alert(height);
+  document.getElementById('mapbox').style.height = height + 'px';
+  // 百度地图API功能
+  var map = new BMap.Map("mapbox");
+  var point = new BMap.Point(116.417854,39.921988);
+  var marker = new BMap.Marker(point);  // 创建标注
+  map.addOverlay(marker);              // 将标注添加到地图中
+  map.centerAndZoom(point, 15);
+  var opts = {
+    width : 200,     // 信息窗口宽度
+    height: 100,     // 信息窗口高度
+    title : "海底捞王府井店" , // 信息窗口标题
+    enableMessage:true,//设置允许信息窗发送短息
+    message:"亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~"
+  }
+  var infoWindow = new BMap.InfoWindow("地址：北京市东城区王府井大街88号乐天银泰百货八层", opts);  // 创建信息窗口对象 
+  marker.addEventListener("click", function(){          
+    map.openInfoWindow(infoWindow,point); //开启信息窗口
+  });
+</script>
 </body>
 </html>
