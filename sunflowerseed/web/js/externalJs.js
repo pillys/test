@@ -1,9 +1,41 @@
 var ExternalJs = {};
-ExternalJs.printGuapaizhang = function(listId) {
-  var data = $(listId).datagrid('getData');
-  alert(JSON.stringify(listId, null, 2));
+ExternalJs.printGuapaizhang = function(url) {
+  $.ajax({
+    url: url,
+    type: 'get',
+    cache: false,
+    success: function(data) {
+      
+    }
+  });
+};
+ExternalJs.addButtonToTopDialog = function(button) {
+  /*
+   {
+      text: '打印',
+      icon: 'icon-print',
+      action: 'ExternalJs.printGuapaizhang(\'url\')'
+   }
+   */
+  var topDialog = {
+    zIndex: 0,
+    dialog: null
+  };
+  $('.panel.window:visible').each(function() {
+    var zIndex = $(this).css('z-index');
+    if(topDialog.zIndex < zIndex) {
+      topDialog.zIndex = zIndex;
+      topDialog.dialog = $(this);
+    }
+  });
+  var buttonHtml = '<a class="l-btn" href="javascript:void(0)" onclick="' + button.action + '"><span class="l-btn-left"><span class="l-btn-text ' + button.icon + ' l-btn-icon-left">'+ button.text + '</span></span></a>';
+  if(topDialog.zIndex !== 0) {
+    topDialog = topDialog.dialog;
+    topDialog.find('.dialog-button').prepend(buttonHtml);
+  }
 };
 
+ExternalJs.printGuapaizhang('#pileDetail-91_pv-List');
 
 /* 地图扩展 */
 (function() {
