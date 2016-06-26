@@ -67,7 +67,9 @@
         init: function() {
           var marker;
           var content = this.content();
-          var map = new BMap.Map('l-map');
+          var map = new BMap.Map('l-map', {
+            enableMapClick: false
+          });
           var point = new BMap.Point(apoint, bpoint);
           map.centerAndZoom(point, 12);
           var top_left_control = new BMap.ScaleControl({
