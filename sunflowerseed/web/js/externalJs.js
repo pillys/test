@@ -1,3 +1,11 @@
+var ExternalJs = {};
+ExternalJs.printGuapaizhang = function(listId) {
+  var data = $(listId).datagrid('getData');
+  alert(JSON.stringify(listId, null, 2));
+};
+
+
+/* 地图扩展 */
 (function() {
   var _load = function(url, callback) {
     var count = 0;
