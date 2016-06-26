@@ -13,7 +13,6 @@
       return;
     }
     var that = this,
-      s = document.getElementsByTagName('script')[0],
       ele = document.createElement('script');
     ele.type = 'text/javascript';
     if (ele.readyState) {
@@ -29,7 +28,7 @@
       };
     }
     ele.src = url;
-    s.parentNode.insertBefore(ele, s);
+    document.body.appendChild(ele);
     return this;
   };
 
