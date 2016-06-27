@@ -44,9 +44,11 @@ ExternalJs.printGuapaizhang = function(url) {
   ExternalJs.loadJs([
     'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
   ], function() {
+    var frameId = 'fr_' + Math.random();
+    console.log(frameId);
     window.vdialog && vdialog({
       title: '打印',
-      content: '<iframe src="' + url + '"></iframe>',
+      content: '<iframe id="' + frameId + '" frameborder="0" scrolling="auto" src="' + url + '" onload="this.style.height=document.getElementById(\'' + frameId + '\').contentWindow.document.body.scrollHeight;this.style.width=document.getElementById(\'' + frameId + '\').contentWindow.document.body.scrollWidth"></iframe>',
       ok: function() {
         this.content().find('iframe').get(0).contentWindow.print();
         return false;
@@ -62,6 +64,7 @@ ExternalJs.addButtonToTopDialog = function(button) {
       action: 'ExternalJs.printGuapaizhang(\'url\')'
    }
    */
+  var buttonHtml;
   var topDialog = {
     zIndex: 0,
     dialog: null
@@ -73,10 +76,15 @@ ExternalJs.addButtonToTopDialog = function(button) {
       topDialog.dialog = $(this);
     }
   });
-  var buttonHtml = '<a class="l-btn" href="javascript:void(0)" onclick="' + button.action + '"><span class="l-btn-left"><span class="l-btn-text ' + button.icon + ' l-btn-icon-left">' + button.text + '</span></span></a>';
+  if(Object.prototype.toString.call(button) !== '[object Array]') {
+    button = [button];
+  }
   if(topDialog.zIndex !== 0) {
-    topDialog = topDialog.dialog;
-    topDialog.find('.dialog-button').prepend(buttonHtml);
+    for(var i = 0; i < button.length; i++) {
+      buttonHtml = '<a class="l-btn" href="javascript:void(0)" onclick="' + button[i].action + '"><span class="l-btn-left"><span class="l-btn-text ' + button[i].icon + ' l-btn-icon-left">' + button[i].text + '</span></span></a>';
+      topDialog = topDialog.dialog;
+      topDialog.find('.dialog-button').prepend(buttonHtml);
+    }
   }
 };
 
