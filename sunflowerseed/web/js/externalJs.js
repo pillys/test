@@ -5,9 +5,16 @@ ExternalJs.printGuapaizhang = function(url) {
     type: 'get',
     cache: false,
     success: function(data) {
-      
+      vdialog({
+        title: '打印',
+        content: data,
+        ok: function() {
+          this.content().find('iframe').get(0).contentWindow.print();
+          return false;
+        }
+      });
     }
-  });
+  }).showModal();
 };
 ExternalJs.addButtonToTopDialog = function(button) {
   /*
@@ -28,7 +35,7 @@ ExternalJs.addButtonToTopDialog = function(button) {
       topDialog.dialog = $(this);
     }
   });
-  var buttonHtml = '<a class="l-btn" href="javascript:void(0)" onclick="' + button.action + '"><span class="l-btn-left"><span class="l-btn-text ' + button.icon + ' l-btn-icon-left">'+ button.text + '</span></span></a>';
+  var buttonHtml = '<a class="l-btn" href="javascript:void(0)" onclick="' + button.action + '"><span class="l-btn-left"><span class="l-btn-text ' + button.icon + ' l-btn-icon-left">' + button.text + '</span></span></a>';
   if(topDialog.zIndex !== 0) {
     topDialog = topDialog.dialog;
     topDialog.find('.dialog-button').prepend(buttonHtml);
