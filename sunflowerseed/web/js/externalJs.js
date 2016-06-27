@@ -1,20 +1,65 @@
 var ExternalJs = {};
-ExternalJs.printGuapaizhang = function(url) {
-  $.ajax({
-    url: url,
-    type: 'get',
-    cache: false,
-    success: function(data) {
-      vdialog({
-        title: '打印',
-        content: data,
-        ok: function() {
-          this.content().find('iframe').get(0).contentWindow.print();
-          return false;
-        }
-      });
+ExternalJs.Cache = {
+  js: {}
+},
+ExternalJs.loadJs = function(url, callback) {
+  var count = 0;
+    if(Object.prototype.toString.call(url) === '[object Array]') {
+      for(var i = 0; i < url.length; i++) {
+        ExternalJs.loadJs(url[i], function() {
+          count++;
+          if(count === url.length) {
+            callback();
+          }
+        });
+      }
+      return;
     }
-  }).showModal();
+    if(ExternalJs.Cache.js[url] === true) {
+      callback && callback.call(that);
+      return true;
+    }
+    var that = this,
+      ele = document.createElement('script');
+    ele.type = 'text/javascript';
+    if (ele.readyState) {
+      ele.onreadystatechange = function() {
+        if (this.readyState === 'loaded' || this.readyState === 'complete') {
+          this.onreadystatechange = null;
+          ExternalJs.Cache.js[url] = true;
+          callback && callback.call(that);
+        }
+      };
+    } else {
+      ele.onload = function() {
+        ExternalJs.Cache.js[url] = true;
+        callback && callback.call(that);
+      };
+    }
+    ele.src = url;
+    document.body.appendChild(ele);
+    return this;
+};
+ExternalJs.printGuapaizhang = function(url) {
+  ExternalJs.loadJs([
+    'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
+  ], function() {
+    $.ajax({
+      url: url,
+      type: 'get',
+      cache: false,
+      success: function(data) {
+        window.vdialog && vdialog({
+          title: '打印',
+          content: data,
+          ok: function() {
+            this.content().find('iframe').get(0).contentWindow.print();
+            return false;
+          }
+        }).showModal();
+      }
+    });
+  });
 };
 ExternalJs.addButtonToTopDialog = function(button) {
   /*
@@ -42,44 +87,11 @@ ExternalJs.addButtonToTopDialog = function(button) {
   }
 };
 
-ExternalJs.printGuapaizhang('#pileDetail-91_pv-List');
+//ExternalJs.printGuapaizhang('#pileDetail-91_pv-List');
 
 /* 地图扩展 */
 (function() {
-  var _load = function(url, callback) {
-    var count = 0;
-    if(Object.prototype.toString.call(url) === '[object Array]') {
-      for(var i = 0; i < url.length; i++) {
-        _load(url[i], function() {
-          count++;
-          if(count === url.length) {
-            callback();
-          }
-        });
-      }
-      return;
-    }
-    var that = this,
-      ele = document.createElement('script');
-    ele.type = 'text/javascript';
-    if (ele.readyState) {
-      ele.onreadystatechange = function() {
-        if (this.readyState === 'loaded' || this.readyState === 'complete') {
-          this.onreadystatechange = null;
-          callback && callback.call(that);
-        }
-      };
-    } else {
-      ele.onload = function() {
-        callback && callback.call(that);
-      };
-    }
-    ele.src = url;
-    document.body.appendChild(ele);
-    return this;
-  };
-
-  _load([
+  ExternalJs.loadJs([
     'http://api.map.baidu.com/getscript?v=2.0&ak=sQnBbFYNEFNDt0gw7OaDB2V09TOwjp4N&services=&t=20160623234740',
     'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
   ], function() {
