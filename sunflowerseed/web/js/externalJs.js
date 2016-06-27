@@ -45,10 +45,9 @@ ExternalJs.printPage = function(url) {
 };
 ExternalJs.printPageAutoSize = function(page) {
   var iframe = document.getElementById(page);
-  iframe.style.height = iframe.contentWindow.document.body.scrollHeight;
-  iframe.style.width = iframe.contentWindow.document.body.scrollWidth;
+  iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+  iframe.style.width = iframe.contentWindow.document.body.scrollWidth + 'px';
   vdialog.top.position();
-  //alert(document.getElementById(\'' + frameId + '\').style.height);
 };
 ExternalJs.printPage = function(url) {
   ExternalJs.loadJs([
