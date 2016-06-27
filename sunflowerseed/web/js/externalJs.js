@@ -1,12 +1,10 @@
 var ExternalJs = {};
-ExternalJs.Cache = {
-  js: {}
-},
-ExternalJs.loadJs = function(url, callback) {
+ExternalJs.cache = {},
+ExternalJs.load = function(url, callback) {
   var count = 0;
   if(Object.prototype.toString.call(url) === '[object Array]') {
     for(var i = 0; i < url.length; i++) {
-      ExternalJs.loadJs(url[i], function() {
+      ExternalJs.load(url[i], function() {
         count++;
         if(count === url.length) {
           callback();
@@ -15,29 +13,40 @@ ExternalJs.loadJs = function(url, callback) {
     }
     return;
   }
-  if(ExternalJs.Cache.js[url] === true) {
+  if(ExternalJs.cache[url] === true) {
     callback && callback.call(that);
     return true;
   }
-  var that = this,
-    ele = document.createElement('script');
-  ele.type = 'text/javascript';
-  if (ele.readyState) {
-    ele.onreadystatechange = function() {
-      if (this.readyState === 'loaded' || this.readyState === 'complete') {
-        this.onreadystatechange = null;
-        ExternalJs.Cache.js[url] = true;
-        callback && callback.call(that);
-      }
-    };
+  var that = this;
+  var ele;
+  if(/\.css(\?|$)/.test(url)) {
+    ele = document.createElement('link');
+    ele.setAttribute('rel', 'stylesheet');
+    ele.setAttribute('type', 'text/css');
+    ele.setAttribute('href', url);
+    document.documentElement.appendChild(ele);
+    ExternalJs.cache[url] = true;
+    callback && callback.call(that);
   } else {
-    ele.onload = function() {
-      ExternalJs.Cache.js[url] = true;
-      callback && callback.call(that);
-    };
+    ele = document.createElement('script');
+    ele.type = 'text/javascript';
+    if (ele.readyState) {
+      ele.onreadystatechange = function() {
+        if (this.readyState === 'loaded' || this.readyState === 'complete') {
+          this.onreadystatechange = null;
+          ExternalJs.cache[url] = true;
+          callback && callback.call(that);
+        }
+      };
+    } else {
+      ele.onload = function() {
+        ExternalJs.cache[url] = true;
+        callback && callback.call(that);
+      };
+    }
+    ele.src = url;
+    document.body.appendChild(ele);
   }
-  ele.src = url;
-  document.body.appendChild(ele);
   return this;
 };
 ExternalJs.printPageAutoSize = function(page) {
@@ -47,11 +56,11 @@ ExternalJs.printPageAutoSize = function(page) {
   vdialog.top.position();
 };
 ExternalJs.printPage = function(url) {
-  ExternalJs.loadJs([
+  ExternalJs.load([
     'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
+    'http://test.qque.com/sunflowerseed/web/css/vdialog.css'
   ], function() {
     var frameId = 'fr_' + Math.random();
-    console.log(frameId);
     window.vdialog && vdialog({
       title: '打印',
       content: '<iframe id="' + frameId + '" frameborder="0" scrolling="auto" src="' + url + '" onload="ExternalJs.printPageAutoSize(\'' + frameId + '\')"></iframe>',
@@ -97,9 +106,10 @@ ExternalJs.addButtonToTopDialog = function() {
 
 /* 地图扩展 */
 (function() {
-  ExternalJs.loadJs([
+  ExternalJs.load([
     'http://api.map.baidu.com/getscript?v=2.0&ak=sQnBbFYNEFNDt0gw7OaDB2V09TOwjp4N&services=&t=20160623234740',
     'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
+    'http://test.qque.com/sunflowerseed/web/css/vdialog.css'
   ], function() {
     var userPoint = '';
     var content = `
@@ -109,12 +119,6 @@ ExternalJs.addButtonToTopDialog = function() {
       </form>
       <div id="l-map" style="height:400px;width:600px;"></div>
     `;
-    var link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('type', 'text/css');
-    link.setAttribute('href', 'http://test.qque.com/sunflowerseed/web/css/vdialog.css');
-    document.documentElement.appendChild(link);
-
     $('body').on('click', 'input[name="plough.coordinates"]', function() {
       var coordinates = $(this);
       var userPointArr, apoint, bpoint;
