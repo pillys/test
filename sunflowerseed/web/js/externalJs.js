@@ -62,7 +62,7 @@ ExternalJs.printPage = function(url) {
         this.content().find('iframe').get(0).contentWindow.print();
         return false;
       },
-      okVal: '立即打印',
+      okValue: '立即打印',
       cancel: true
     }).showModal();
   });
