@@ -61,7 +61,8 @@ ExternalJs.printPage = function(url) {
       ok: function() {
         this.content().find('iframe').get(0).contentWindow.print();
         return false;
-      }
+      },
+      cancel: true
     }).showModal();
   });
 };
