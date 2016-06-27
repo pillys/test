@@ -40,7 +40,17 @@ ExternalJs.loadJs = function(url, callback) {
   document.body.appendChild(ele);
   return this;
 };
-ExternalJs.printGuapaizhang = function(url) {
+ExternalJs.printPage = function(url) {
+
+};
+ExternalJs.printPageAutoSize = function(page) {
+  var iframe = document.getElementById(page);
+  iframe.style.height = iframe.contentWindow.document.body.scrollHeight;
+  iframe.style.width = iframe.contentWindow.document.body.scrollWidth;
+  vdialog.top.position();
+  //alert(document.getElementById(\'' + frameId + '\').style.height);
+};
+ExternalJs.printPage = function(url) {
   ExternalJs.loadJs([
     'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
   ], function() {
@@ -48,7 +58,7 @@ ExternalJs.printGuapaizhang = function(url) {
     console.log(frameId);
     window.vdialog && vdialog({
       title: '打印',
-      content: '<iframe id="' + frameId + '" frameborder="0" scrolling="auto" src="' + url + '" onload="this.style.height=document.getElementById(\'' + frameId + '\').contentWindow.document.body.scrollHeight;this.style.width=document.getElementById(\'' + frameId + '\').contentWindow.document.body.scrollWidth"></iframe>',
+      content: '<iframe id="' + frameId + '" frameborder="0" scrolling="auto" src="' + url + '" onload="ExternalJs.printPageAutoSize(\'' + frameId + '\')"></iframe>',
       ok: function() {
         this.content().find('iframe').get(0).contentWindow.print();
         return false;
