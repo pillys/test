@@ -40,9 +40,6 @@ ExternalJs.loadJs = function(url, callback) {
   document.body.appendChild(ele);
   return this;
 };
-ExternalJs.printPage = function(url) {
-
-};
 ExternalJs.printPageAutoSize = function(page) {
   var iframe = document.getElementById(page);
   iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
