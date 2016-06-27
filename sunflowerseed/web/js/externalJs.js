@@ -43,7 +43,7 @@ ExternalJs.loadJs = function(url, callback) {
 ExternalJs.printPageAutoSize = function(page) {
   var iframe = document.getElementById(page);
   iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-  iframe.style.width = iframe.contentWindow.document.body.scrollWidth + 'px';
+  iframe.style.width = Math.max(600, iframe.contentWindow.document.body.scrollWidth) + 'px';
   vdialog.top.position();
 };
 ExternalJs.printPage = function(url) {
