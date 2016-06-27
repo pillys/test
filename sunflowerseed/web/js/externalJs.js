@@ -4,61 +4,54 @@ ExternalJs.Cache = {
 },
 ExternalJs.loadJs = function(url, callback) {
   var count = 0;
-    if(Object.prototype.toString.call(url) === '[object Array]') {
-      for(var i = 0; i < url.length; i++) {
-        ExternalJs.loadJs(url[i], function() {
-          count++;
-          if(count === url.length) {
-            callback();
-          }
-        });
-      }
-      return;
-    }
-    if(ExternalJs.Cache.js[url] === true) {
-      callback && callback.call(that);
-      return true;
-    }
-    var that = this,
-      ele = document.createElement('script');
-    ele.type = 'text/javascript';
-    if (ele.readyState) {
-      ele.onreadystatechange = function() {
-        if (this.readyState === 'loaded' || this.readyState === 'complete') {
-          this.onreadystatechange = null;
-          ExternalJs.Cache.js[url] = true;
-          callback && callback.call(that);
+  if(Object.prototype.toString.call(url) === '[object Array]') {
+    for(var i = 0; i < url.length; i++) {
+      ExternalJs.loadJs(url[i], function() {
+        count++;
+        if(count === url.length) {
+          callback();
         }
-      };
-    } else {
-      ele.onload = function() {
+      });
+    }
+    return;
+  }
+  if(ExternalJs.Cache.js[url] === true) {
+    callback && callback.call(that);
+    return true;
+  }
+  var that = this,
+    ele = document.createElement('script');
+  ele.type = 'text/javascript';
+  if (ele.readyState) {
+    ele.onreadystatechange = function() {
+      if (this.readyState === 'loaded' || this.readyState === 'complete') {
+        this.onreadystatechange = null;
         ExternalJs.Cache.js[url] = true;
         callback && callback.call(that);
-      };
-    }
-    ele.src = url;
-    document.body.appendChild(ele);
-    return this;
+      }
+    };
+  } else {
+    ele.onload = function() {
+      ExternalJs.Cache.js[url] = true;
+      callback && callback.call(that);
+    };
+  }
+  ele.src = url;
+  document.body.appendChild(ele);
+  return this;
 };
 ExternalJs.printGuapaizhang = function(url) {
   ExternalJs.loadJs([
     'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
   ], function() {
-    $.ajax({
-      url: url,
-      type: 'get',
-      cache: false,
-      success: function(data) {
-        window.vdialog && vdialog({
-          title: '打印',
-          content: data,
-          ok: function() {
-            this.content().find('iframe').get(0).contentWindow.print();
-            return false;
-          }
-        }).showModal();
+    window.vdialog && vdialog({
+      title: '打印',
+      content: '<iframe src="' + url + '"></iframe>',
+      ok: function() {
+        this.content().find('iframe').get(0).contentWindow.print();
+        return false;
       }
-    });
+    }).showModal();
   });
 };
 ExternalJs.addButtonToTopDialog = function(button) {
