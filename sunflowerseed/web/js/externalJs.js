@@ -56,31 +56,26 @@ ExternalJs.printPageAutoSize = function(page) {
   vdialog.top.position();
 };
 ExternalJs.printPage = function(url) {
-  ExternalJs.load([
-    'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
-    'http://test.qque.com/sunflowerseed/web/css/vdialog.css'
-  ], function() {
-    var frameId = 'fr_' + Math.random();
-    window.vdialog && vdialog({
-      title: '打印',
-      content: '<iframe id="' + frameId + '" frameborder="0" scrolling="auto" src="' + url + '" onload="ExternalJs.printPageAutoSize(\'' + frameId + '\')"></iframe>',
-      ok: function() {
-        this.content().find('iframe').get(0).contentWindow.print();
-        return false;
-      },
-      okValue: '立即打印',
-      cancel: true
-    }).showModal();
-  });
+  var frameId = 'fr_' + Math.random();
+  window.vdialog && vdialog({
+    title: '打印',
+    content: '<iframe id="' + frameId + '" frameborder="0" scrolling="auto" src="' + url + '" onload="ExternalJs.printPageAutoSize(\'' + frameId + '\')"></iframe>',
+    ok: function() {
+      this.content().find('iframe').get(0).contentWindow.print();
+      return false;
+    },
+    okValue: '立即打印',
+    cancel: true
+  }).showModal();
 };
+/*
+  {
+    text: '打印',
+    icon: 'icon-print',
+    action: 'ExternalJs.printGuapaizhang(\'url\')'
+  }
+*/
 ExternalJs.addButtonToTopDialog = function() {
-  /*
-   {
-      text: '打印',
-      icon: 'icon-print',
-      action: 'ExternalJs.printGuapaizhang(\'url\')'
-   }
-   */
   var buttonHtml;
   var topDialog = {
     zIndex: 0,
@@ -102,7 +97,40 @@ ExternalJs.addButtonToTopDialog = function() {
   }
 };
 
-ExternalJs.resetGoodsAddButton = function() {
+ExternalJs.DataGrid = {};
+//$('#goodsStockInDetail-315_pv-List').datagrid('l_appendRow')
+//ExternalJs.DataGrid.AppendRow('#goodsStockInDetail-326_pv-List', 'url');
+ExternalJs.DataGrid.AppendRow = function(jqid, url) {
+  var scanner = $('<div class="scanner">' +
+      '  <div class="scan-main">' +
+      '    <a class="close">&times;</a>' +
+      '    <div class="scan-box">' +
+      '      <div class="line"></div>' + 
+      '      <p>等待扫描二维码...</p>' +
+      '    </div>' +
+      '    <input size="30" style="font-size:20px;" />' +
+      '  </div>' +
+      '</div>').appendTo('body');
+  scanner.find('a.close').on('click', function() {
+    scanner.remove();
+  });
+  scanner.find('input').on('blur', function() {
+    $(this).focus();
+  }).on('keydown', function(event) {
+    if(event.keyCode === 13) {
+      scanner.remove();
+      $(jqid).datagrid('l_appendRow', {
+        goodsNum: '123',
+        goods: {
+          title: '阿里山葵花籽',
+          id: 1
+        }
+      });
+    }
+  });
+};
+
+/*ExternalJs.resetGoodsAddButton = function() {
   var addbtn = '.datagrid-toolbar[id^=goodsStockInDetail-] .easyui-linkbutton';
   $(document).on('mousedown', addbtn, function() {
     var onclick = $(this).attr('onclick');
@@ -153,18 +181,16 @@ ExternalJs.resetGoodsAddButton = function() {
       }).showModal();
     });
   });
-};
+};*/
 
-ExternalJs.resetGoodsAddButton();
+//ExternalJs.resetGoodsAddButton();
 
 //ExternalJs.printGuapaizhang('#pileDetail-91_pv-List');
 
 /* 地图扩展 */
 (function() {
   ExternalJs.load([
-    'http://api.map.baidu.com/getscript?v=2.0&ak=sQnBbFYNEFNDt0gw7OaDB2V09TOwjp4N&services=&t=20160623234740',
-    'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
-    'http://test.qque.com/sunflowerseed/web/css/vdialog.css'
+    'http://api.map.baidu.com/getscript?v=2.0&ak=sQnBbFYNEFNDt0gw7OaDB2V09TOwjp4N&services=&t=20160623234740'
   ], function() {
     var userPoint = '';
     var content = `
