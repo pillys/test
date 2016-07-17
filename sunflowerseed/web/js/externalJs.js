@@ -126,7 +126,6 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
         dataType: 'jsonp',
         success: function(data) {
           if(data.flag === 1) {
-            scanner.remove();
             /*data.data = {
               goodsNum: '123',
               goods: {
@@ -135,6 +134,7 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
               }
             };*/
             $(jqid).datagrid('l_appendRow', data.data);
+            scanner.remove();
           } else {
             scanText.text(data.msg);
           }
