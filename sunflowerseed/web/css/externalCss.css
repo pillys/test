@@ -36,7 +36,7 @@
   height: 300px;
   background-color: #000;
 }
-.scanner .scan-main .scan-box p {
+.scanner .scan-main .scan-box .scan-text {
   line-height: 300px;
   text-align: center;
   color: #eee;

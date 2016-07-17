@@ -106,11 +106,12 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
       '    <a class="close">&times;</a>' +
       '    <div class="scan-box">' +
       '      <div class="line"></div>' + 
-      '      <p>等待扫描二维码...</p>' +
+      '      <p class="scan-text">等待扫描二维码...</p>' +
       '    </div>' +
       '    <input size="30" style="font-size:20px;" />' +
       '  </div>' +
       '</div>').appendTo('body');
+  var scanText = scanner.find('.scan-text');
   scanner.find('a.close').on('click', function() {
     scanner.remove();
   });
@@ -118,12 +119,25 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
     $(this).focus();
   }).on('keydown', function(event) {
     if(event.keyCode === 13) {
-      scanner.remove();
-      $(jqid).datagrid('l_appendRow', {
-        goodsNum: '123',
-        goods: {
-          title: '阿里山葵花籽',
-          id: 1
+      scanText.text('已扫描，正在处理...');
+      $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'jsonp',
+        success: function(data) {
+          if(data.flag === 1) {
+            scanner.remove();
+            /*data.data = {
+              goodsNum: '123',
+              goods: {
+                title: '阿里山葵花籽',
+                id: 1
+              }
+            };*/
+            $(jqid).datagrid('l_appendRow', data.data);
+          } else {
+            scanText.text(data.msg);
+          }
         }
       });
     }
