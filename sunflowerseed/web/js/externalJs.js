@@ -126,13 +126,16 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
         dataType: 'jsonp',
         success: function(data) {
           if(data.flag === 1) {
-            /*data.data = {
-              goodsNum: '123',
-              goods: {
-                title: '阿里山葵花籽',
-                id: 1
+            /*data = {
+              flag: 1,
+              data: {
+                goodsNum: '123',
+                goods: {
+                  title: '阿里山葵花籽',
+                  id: 1
+                }
               }
-            };*/
+            }*/
             $(jqid).datagrid('l_appendRow', data.data);
             scanner.remove();
           } else {
@@ -141,7 +144,7 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
         }
       });
     }
-  });
+  }).focus();
 };
 
 /*ExternalJs.resetGoodsAddButton = function() {
