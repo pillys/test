@@ -39,3 +39,192 @@
   padding: 0 .3em;
   color: #fff;
 }
+.subnavbar {
+  padding: 0;
+}
+.buttons-row {
+  border-bottom: 1px solid #cccccc;
+}
+.buttons-row .button {
+  color: #333;
+  border: none;
+  line-height: 40px;
+  height: auto;
+}
+.buttons-row .button:first-child {
+  border: none;
+  border-radius: 0;
+}
+.buttons-row .button.active {
+  color: #00b300;
+  background-color: transparent;
+  border-bottom: 4px solid #00b100
+}
+/* 追溯信息 */
+.page-zhuisu .page-content {
+  padding-top: 80px;
+}
+.page-zhuisu .page-content .row {
+  margin-bottom: 30px;
+}
+.page-zhuisu .page-content .col-33 {
+  line-height: 100px;
+}
+.page-zhuisu .page-content .col-33:first-child {
+  text-align: center;
+}
+.page-zhuisu .page-content .col-thumb {
+  text-align: center;
+  position: relative;
+}
+.page-zhuisu .page-content .col-thumb img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid #00b300;
+  vertical-align: middle;
+}
+.page-zhuisu .page-content .col-thumb:before,
+.page-zhuisu .page-content .col-thumb:after {
+  position: absolute;
+  display: block;
+  content: '';
+  left: 50%;
+}
+.page-zhuisu .page-content .col-thumb:before {
+  background-color: #00b300;
+  width: 4px;
+  height: 20px;
+  bottom: -20px;
+  margin-left: -2px;
+}
+.page-zhuisu .page-content .col-thumb:after {
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top-color: #00b300;
+  bottom: -36px;
+  margin-left: -8px;
+}
+.page-zhuisu .page-content .row:last-child {
+  margin-bottom: 0;
+}
+.page-zhuisu .page-content .row:last-child .col-thumb:before,
+.page-zhuisu .page-content .row:last-child .col-thumb:after {
+  display: none;
+}
+
+/* 产品 */
+.page-chanpin .content {
+  margin-top: 60px;
+}
+.page-chanpin .content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-chanpin .content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+/* 追溯信息-种植信息 */
+.page-zhuisuxinxi-zhongzhixinxi .page-content .thumb {
+  text-align: center;
+  border-bottom: 1px solid #d4d6d7;
+  padding: 20px 0;
+}
+.page-zhuisuxinxi-zhongzhixinxi .page-content .thumb img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+/* 追溯信息-生产信息 */
+.page-zhuisuxinxi-shengchanxinxi .page-content .thumb {
+  text-align: center;
+  border-bottom: 1px solid #d4d6d7;
+  padding: 20px 0;
+}
+.page-zhuisuxinxi-shengchanxinxi .page-content .thumb img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.page-zhuisuxinxi-shengchanxinxi .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-shengchanxinxi .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+.page-zhuisuxinxi-shengchanxinxi .page-content h2 {
+  font-size: 18px;
+  background-color: #fff;
+  padding-left: 10px;
+  margin: 0;
+  line-height: 40px;
+}
+/* 追溯信息-物流信息 */
+.page-zhuisuxinxi-wuliuxinxi .page-content .thumb {
+  text-align: center;
+  border-bottom: 1px solid #d4d6d7;
+  padding: 20px 0;
+}
+.page-zhuisuxinxi-wuliuxinxi .page-content .thumb img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.page-zhuisuxinxi-wuliuxinxi .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-wuliuxinxi .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+.page-zhuisuxinxi-wuliuxinxi .page-content h2 {
+  font-size: 18px;
+  background-color: #fff;
+  padding-left: 10px;
+  margin: 0;
+  line-height: 40px;
+}
+/* 追溯信息-零售信息 */
+.page-zhuisuxinxi-lingshouxinxi .page-content .thumb {
+  text-align: center;
+  border-bottom: 1px solid #d4d6d7;
+  padding: 20px 0;
+}
+.page-zhuisuxinxi-lingshouxinxi .page-content .thumb img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.page-zhuisuxinxi-lingshouxinxi .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-lingshouxinxi .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+.page-zhuisuxinxi-lingshouxinxi .page-content h2 {
+  font-size: 18px;
+  background-color: #fff;
+  padding-left: 10px;
+  margin: 0;
+  line-height: 40px;
+}
+/* 追溯信息-种植信息-农户介绍 */
+.page-zhuisuxinxi-zhongzhixinxi-nonghujieshao .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-zhongzhixinxi-nonghujieshao .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
