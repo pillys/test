@@ -45,7 +45,7 @@ ExternalJs.load = function(url, callback) {
       };
     }
     ele.src = url;
-    document.body.appendChild(ele);
+    (document.head || document.body).appendChild(ele);
   }
   return this;
 };
@@ -154,7 +154,6 @@ ExternalJs.initPcPageIndex = function() {
   var namelist = items.map(function() {
     return $(this).data('name');
   });
-  console.log(namelist);
   $('.pc-page-index').on('click', 'ul.tabs li', function() {
     var index = $(this).index();
     var apiname = namelist[index];
@@ -162,8 +161,18 @@ ExternalJs.initPcPageIndex = function() {
     if(panel.html().trim() === '') {
       switch(apiname) {
         case 'product':
-          nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/product.js', {}, function(d) {
-            $(d).appendTo(panel);
+          $.ajax({
+            url: 'http://202.85.222.47:8083/traceGoods.action?traceNum=',
+            type: 'get',
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              if(data.flag === 1) {
+                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/product.js', data, function(d) {
+                  $(d).appendTo(panel);
+                });
+              }
+            }
           });
           break;
       }
