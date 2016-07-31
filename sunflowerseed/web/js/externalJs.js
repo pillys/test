@@ -120,9 +120,13 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
   }).on('keydown', function(event) {
     if(event.keyCode === 13) {
       scanText.text('已扫描，正在处理...');
+      var originalTraceNum = $(this).val();
       $.ajax({
         url: url,
         type: 'get',
+        data: {
+          originalTraceNum: originalTraceNum
+        },
         dataType: 'jsonp',
         success: function(data) {
           if(data.flag === 1) {
