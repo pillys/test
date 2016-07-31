@@ -117,8 +117,9 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
     $(this).focus();
   }).on('keydown', function(event) {
     if(event.keyCode === 13) {
+      var inputer = $(this);
+      var originalTraceNum = inputer.val();
       scanText.text('已扫描，正在处理...');
-      var originalTraceNum = $(this).val();
       $.ajax({
         url: url,
         type: 'get',
@@ -140,6 +141,7 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
             }*/
             $(jqid).datagrid('l_appendRow', data.data);
             //scanner.remove();
+            inputer.val('');
           } else {
             scanText.text(data.msg);
           }
