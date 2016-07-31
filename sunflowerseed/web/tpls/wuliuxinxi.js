@@ -52,21 +52,25 @@
         var _ = '';
         var duid = $NODETPL.duid();
         guid = guid || $NODETPL.guid();
-        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}</style>';
+        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}#' + guid + ' .info-basic {  height: 200px;}</style>';
         try {
-          _ += '<div id="' + guid + '">\n';
+          _ += '<div id="' + guid + '" class="easyui-layout" style="height:100%">\n  ';
           $DATA.data.forEach(function(item) {
-            _ += '\n  <div class="content-title">';
-            if (typeof item.key !== 'undefined') {
-              _ += $NODETPL.escapeHtml(item.key);
-            }
+            _ += '\n    <div class="item-box">\n      <h2>test</h2>\n      ';
+            item.detail.forEach(function(subitem) {
+              _ += '\n        <div class="content-title">';
+              if (typeof subitem.time !== 'undefined') {
+                _ += $NODETPL.escapeHtml(subitem.time);
+              }
 
-            _ += '</div>\n  <div class="content-detail">\n    ';
-            if (typeof item.value !== 'undefined') {
-              _ += $NODETPL.escapeHtml(item.value);
-            }
+              _ += '</div>\n        <div class="content-detail">\n          ';
+              if (typeof subitem.context !== 'undefined') {
+                _ += $NODETPL.escapeHtml(subitem.context);
+              }
 
-            _ += '\n  </div>\n';
+              _ += '\n        </div>\n      ';
+            });
+            _ += '\n    </div>\n  ';
           });
           _ += '\n</div>';
         } catch (e) {

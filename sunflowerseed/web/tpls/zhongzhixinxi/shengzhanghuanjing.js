@@ -52,7 +52,7 @@
         var _ = '';
         var duid = $NODETPL.duid();
         guid = guid || $NODETPL.guid();
-        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}</style>';
+        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}#' + guid + ' .text-center {  text-align: center;}</style>';
         try {
           _ += '<div id="' + guid + '">\n';
           $DATA.data.forEach(function(item) {
@@ -62,10 +62,21 @@
             }
 
             _ += '</div>\n  <div class="content-detail">\n    ';
-            if (typeof item.value !== 'undefined') {
-              _ += $NODETPL.escapeHtml(item.value);
-            }
+            if (item.type === 'video') {
+              _ += '\n      <div class="text-center">\n        <video width="320" height="240" controls="controls">  \n          <source src="';
+              if (typeof item.value !== 'undefined') {
+                _ += $NODETPL.escapeHtml(item.value);
+              }
 
+              _ += '" type="video/mp4"></source>  \n        </video>\n      </div>\n    ';
+            } else {
+              _ += '\n      ';
+              if (typeof item.value !== 'undefined') {
+                _ += $NODETPL.escapeHtml(item.value);
+              }
+
+              _ += '\n    ';
+            }
             _ += '\n  </div>\n';
           });
           _ += '\n</div>';

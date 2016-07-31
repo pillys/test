@@ -156,6 +156,7 @@ ExternalJs.initPcPageIndex = function() {
   var namelist = items.map(function() {
     return $(this).data('name');
   });
+  var traceNum = $('.pc-page-index').data('trace-num');
   $('.pc-page-index').on('click', 'ul.tabs li', function() {
     var index = $(this).index();
     var apiname = namelist[index];
@@ -164,8 +165,11 @@ ExternalJs.initPcPageIndex = function() {
       switch(apiname) {
         case 'product':
           $.ajax({
-            url: 'http://202.85.222.47:8083/traceGoods.action?traceNum=',
+            url: 'http://202.85.222.47:8083/traceGoods.action',
             type: 'get',
+            data: {
+              traceNum: traceNum
+            },
             dataType: 'json',
             cache: false,
             success: function(data) {
@@ -177,9 +181,55 @@ ExternalJs.initPcPageIndex = function() {
             }
           });
           break;
+        case 'planting':
+          nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/planting.js', {
+            traceNum: traceNum
+          }, function(d) {
+            $(d).appendTo(panel);
+          });
+          break;
+        case 'production':
+          $.ajax({
+            url: 'http://202.85.222.47:8083/traceProduction.action',
+            type: 'get',
+            data: {
+              traceNum: traceNum
+            },
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              if(data.flag === 1) {
+                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/shengchanxinxi.js', data, function(d) {
+                  $(d).appendTo(panel);
+                });
+              }
+            }
+          });
+          break;
+        case 'logistics':
+          $.ajax({
+            url: 'http://202.85.222.47:8083/traceLogistics.action',
+            type: 'get',
+            data: {
+              traceNum: traceNum
+            },
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              if(data.flag === 1) {
+                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/wuliuxinxi.js', data, function(d) {
+                  $(d).appendTo(panel);
+                });
+              }
+            }
+          });
+          break;
       }
     }
   });
+  setTimeout(function(){
+    $('.pc-page-index ul.tabs li:first').trigger('click');
+  }, 500);
 };
 
 /* 地图扩展 */

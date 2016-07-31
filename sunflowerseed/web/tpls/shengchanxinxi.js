@@ -52,29 +52,55 @@
         var _ = '';
         var duid = $NODETPL.duid();
         guid = guid || $NODETPL.guid();
-        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}</style>';
+        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}#' + guid + ' .info-basic {  height: 200px;}</style>';
         try {
-          _ += '<div id="' + guid + '">\n';
-          $DATA.data.forEach(function(item) {
-            _ += '\n  <div class="content-title">';
+          _ += '<div id="' + guid + '" class="easyui-layout" style="height:100%">\n  <div class="info-basic" data-options="region:\'north\',title:\'基本信息\',split:true">\n    ';
+          $DATA.data.baseInfo.forEach(function(item) {
+            _ += '\n      <div class="content-title">';
             if (typeof item.key !== 'undefined') {
               _ += $NODETPL.escapeHtml(item.key);
             }
 
-            _ += '</div>\n  <div class="content-detail">\n    ';
+            _ += '</div>\n      <div class="content-detail">\n        ';
             if (typeof item.value !== 'undefined') {
               _ += $NODETPL.escapeHtml(item.value);
             }
 
-            _ += '\n  </div>\n';
+            _ += '\n      </div>\n    ';
           });
-          _ += '\n</div>';
+          _ += '\n  </div>\n  <div class="info-details" data-options="region:\'center\',title:\'生产过程\'">\n    ';
+          $DATA.data.productionInfo.forEach(function(item) {
+            _ += '\n      <div class="content-title">';
+            if (typeof item.key !== 'undefined') {
+              _ += $NODETPL.escapeHtml(item.key);
+            }
+
+            _ += '</div>\n      <div class="content-detail">\n        ';
+            if (typeof item.value !== 'undefined') {
+              _ += $NODETPL.escapeHtml(item.value);
+            }
+
+            _ += '\n      </div>\n    ';
+          });
+          _ += '\n  </div>\n</div>';
         } catch (e) {
           console.log(e, e.stack);
         }
         if ($DATA) {
           $NODETPL.datas[duid] = $DATA;
         }
+        (function(scripts) {
+          var cache = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+          cache._nodetpl_ = cache._nodetpl_ || {};
+          cache._nodetpl_[guid + '-' + duid] = scripts['main'];
+        })($NODETPL.scripts);
+        _ += '<script>\n';
+        _ += '(function(){\n';
+        _ += '  var cache = typeof window !== \'undefined\' ? window : typeof global !== \'undefined\' ? global : {};\n';
+        _ += '  cache._nodetpl_[\'' + guid + '-' + duid + '\'](\'' + guid + '\', \'' + duid + '\');\n';
+        _ += '  delete cache._nodetpl_[\'' + guid + '-' + duid + '\'];\n';
+        _ += '})();\n';
+        _ += '</script>\n';
         return _;
       }
     };
@@ -83,7 +109,15 @@
   NodeTpl.prototype._initScripts = function() {
     var $NODETPL = this;
     this.scripts = {
-
+      "main": function(guid, duid) {
+        var ROOT = document.getElementById(guid);
+        var SUBROOT = document.getElementById(guid + duid);
+        var $TPLS = $NODETPL.tpls;
+        var $DATA = $NODETPL.datas[duid];
+        $(ROOT).layout({
+          fit: true
+        });
+      }
     };
     return $NODETPL;
   };
