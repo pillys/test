@@ -2201,6 +2201,9 @@
 /* Pages */
 .www-index {
   color: #fff;
+  width: 100%;
+  height: 100%;
+  background: #caeaca url('http://www.sunflower.lol/lycaen/img/bg10.jpg') repeat 10% 10%;
 }
 .www-index .fa {
   vertical-align: middle;
