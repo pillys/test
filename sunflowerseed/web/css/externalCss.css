@@ -2206,8 +2206,8 @@
   vertical-align: middle;
 }
 .www-index .qr-box{
-  font-size: 40px;
-  padding: 40px 0;
+  font-size: 50px;
+  padding: 50px 0;
   text-align: center;
 }
 .www-index .qr-box .fa {
@@ -2222,11 +2222,11 @@
 }
 .www-index .qr-box button .fa {
   color: #fff;
-  font-size: 40px;
+  font-size: 50px;
 }
-.www-index .input-text {
+.www-index .qr-box .input-text {
   color: #fff;
-  font-size: 20px;
+  font-size: 25px;
   padding: 5px 10px;
   margin: 0;
   border: 1px solid rgba(255,255,255,.7);
