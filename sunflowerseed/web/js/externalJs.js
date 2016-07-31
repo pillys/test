@@ -139,7 +139,7 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
               }
             }*/
             $(jqid).datagrid('l_appendRow', data.data);
-            scanner.remove();
+            //scanner.remove();
           } else {
             scanText.text(data.msg);
           }
