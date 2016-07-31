@@ -98,8 +98,6 @@ ExternalJs.addButtonToTopDialog = function() {
 };
 
 ExternalJs.DataGrid = {};
-//$('#goodsStockInDetail-315_pv-List').datagrid('l_appendRow')
-//ExternalJs.DataGrid.AppendRow('#goodsStockInDetail-326_pv-List', 'url');
 ExternalJs.DataGrid.AppendRow = function(jqid, url) {
   var scanner = $('<div class="scanner">' +
       '  <div class="scan-main">' +
@@ -151,62 +149,27 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
   }).focus();
 };
 
-/*ExternalJs.resetGoodsAddButton = function() {
-  var addbtn = '.datagrid-toolbar[id^=goodsStockInDetail-] .easyui-linkbutton';
-  $(document).on('mousedown', addbtn, function() {
-    var onclick = $(this).attr('onclick');
-    if(onclick) {
-      $(this).removeAttr('onclick');
-      $(this).data('_onclick', onclick);
-    }
-    $(this).off('click');
-  }).on('click', addbtn, function() {
-    var button = $(this),
-      onclick = $(this).data('_onclick');
-    ExternalJs.load([
-      'http://test.qque.com/sunflowerseed/web/js/vdialog.js',
-      'http://test.qque.com/sunflowerseed/web/css/vdialog.css'
-    ], function() {
-      window.vdialog && vdialog({
-        title: '等待扫描',
-        content: '<div><input size="30" style="font-size:20px;" /></div>',
-        ok: false,
-        cancel: false,
-        init: function() {
-          this.content().find('input').on('click', function() {
-            eval(onclick);
-            var tr = button.closest('.datagrid-toolbar').next('.datagrid-view').find('.datagrid-view2 .datagrid-body table tbody tr:last');
-            var goodsNum = '12345';
-            var goodsTitle = '阿里山葵花籽';
-            tr.find('td[field="goodsNum"]').children('div').click();
-            tr.find('td[field="goodsNum"]').find('input').val(goodsNum);
-            tr.find('td[field="goods.title"]').children('div').click();
-            var count = 0;
-            var timer = setInterval(function() {
-              count++;
-              tr.find('td[field="goods.title"]').find('input').focus();
-              if($('#suggest ul').is(':visible')) {
-                var item = $('#suggest ul li span').filter(function() {
-                  return $(this).text() === goodsTitle;
-                });
-                item.click();
-                clearInterval(timer);
-              } else {
-                if(count > 10) {
-                  clearInterval(timer);
-                }
-              }
-            }, 500);
-          });
-        }
-      }).showModal();
-    });
+ExternalJs.initPcPageIndex = function() {
+  var items = $('.pc-page-index .tab-item');
+  var namelist = items.map(function() {
+    return $(this).data('name');
   });
-};*/
-
-//ExternalJs.resetGoodsAddButton();
-
-//ExternalJs.printGuapaizhang('#pileDetail-91_pv-List');
+  console.log(namelist);
+  $('.pc-page-index').on('click', 'ul.tabs li', function() {
+    var index = $(this).index();
+    var apiname = namelist[index];
+    var panel = $('.tabs-panels .panel .panel-body:eq('+ index + ')');
+    if(panel.html().trim() === '') {
+      switch(apiname) {
+        case 'product':
+          nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/product.js', {}, function(d) {
+            $(d).appendTo(panel);
+          });
+          break;
+      }
+    }
+  });
+};
 
 /* 地图扩展 */
 (function() {

@@ -1,3 +1,6 @@
+.pc-page-index .tab-item {
+  padding: 10px;
+}
 .scanner {
   position: fixed;
   left: 0;
