@@ -224,6 +224,24 @@ ExternalJs.initPcPageIndex = function() {
             }
           });
           break;
+        case 'retail':
+          $.ajax({
+            url: 'http://202.85.222.47:8083/traceRetail.action',
+            type: 'get',
+            data: {
+              traceNum: traceNum
+            },
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              if(data.flag === 1) {
+                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/lingshouxinxi.js', data, function(d) {
+                  $(d).appendTo(panel);
+                });
+              }
+            }
+          });
+          break;
       }
     }
   });
