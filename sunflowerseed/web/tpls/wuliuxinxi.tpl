@@ -15,7 +15,7 @@
 <div id="$ROOT" class="easyui-layout" style="height:100%">
   <?@data.forEach(function(item) {?>
     <div class="item-box">
-      <h2>test</h2>
+      <h2><?=item.title?></h2>
       <?item.detail.forEach(function(subitem) {?>
         <div class="content-title"><?=subitem.time?></div>
         <div class="content-detail">

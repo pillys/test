@@ -56,7 +56,12 @@
         try {
           _ += '<div id="' + guid + '" class="easyui-layout" style="height:100%">\n  ';
           $DATA.data.forEach(function(item) {
-            _ += '\n    <div class="item-box">\n      <h2>test</h2>\n      ';
+            _ += '\n    <div class="item-box">\n      <h2>';
+            if (typeof item.title !== 'undefined') {
+              _ += $NODETPL.escapeHtml(item.title);
+            }
+
+            _ += '</h2>\n      ';
             item.detail.forEach(function(subitem) {
               _ += '\n        <div class="content-title">';
               if (typeof subitem.time !== 'undefined') {
