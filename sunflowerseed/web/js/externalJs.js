@@ -160,7 +160,7 @@ ExternalJs.initPcPageIndex = function() {
   $('.pc-page-index').on('click', 'ul.tabs li', function() {
     var index = $(this).index();
     var apiname = namelist[index];
-    var panel = $('.tabs-panels .panel .panel-body:eq('+ index + ')');
+    var panel = $('.tabs-panels>.panel:eq('+ index + ')>.panel-body');
     if(panel.html().trim() === '') {
       switch(apiname) {
         case 'product':
