@@ -161,5 +161,5 @@ $('.planting-tree ul li', ROOT).on('click', function() {
       });
       break;
   }
-});
+}).first().trigger('click');
 </script>

@@ -184,7 +184,7 @@
               });
               break;
           }
-        });
+        }).first().trigger('click');
       }
     };
     return $NODETPL;

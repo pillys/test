@@ -157,10 +157,10 @@ ExternalJs.initPcPageIndex = function() {
     return $(this).data('name');
   });
   var traceNum = $('.pc-page-index').data('trace-num');
-  $('.pc-page-index').on('click', 'ul.tabs li', function() {
+  $('.pc-page-index').on('click', '.tabs-header>.tabs-wrap>ul.tabs li', function() {
     var index = $(this).index();
     var apiname = namelist[index];
-    var panel = $('.tabs-panels>.panel:eq('+ index + ')>.panel-body');
+    var panel = $('.pc-page-index>.tabs-panels>.panel:eq('+ index + ')>.panel-body');
     if(panel.html().trim() === '') {
       switch(apiname) {
         case 'product':

@@ -13,15 +13,19 @@
 }
 </style>
 <div id="$ROOT" class="easyui-layout" style="height:100%">
-  <?@data.forEach(function(item) {?>
-    <div class="item-box">
-      <h2><?=item.title?></h2>
-      <?item.detail.forEach(function(subitem) {?>
-        <div class="content-title"><?=subitem.time?></div>
-        <div class="content-detail">
-          <?=subitem.context?>
-        </div>
-      <?});?>
-    </div>
-  <?});?>
+  <?if(@data.length > 0) {?>
+    <?@data.forEach(function(item) {?>
+      <div class="item-box">
+        <h2><?=item.title?></h2>
+        <?item.detail.forEach(function(subitem) {?>
+          <div class="content-title"><?=subitem.time?></div>
+          <div class="content-detail">
+            <?=subitem.context?>
+          </div>
+        <?});?>
+      </div>
+    <?});?>
+  <?} else {?>
+    <p>未找到相关数据。</p>
+  <?}?>
 </div>
