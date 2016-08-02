@@ -153,6 +153,7 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
 
 ExternalJs.initPcPageIndex = function(id) {
   var items = $('.pc-page-index .tab-item', '#'+ id);
+  alert(id);
   var namelist = items.map(function() {
     return $(this).data('name');
   });
