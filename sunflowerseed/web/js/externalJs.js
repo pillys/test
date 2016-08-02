@@ -151,16 +151,16 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
   }).focus();
 };
 
-ExternalJs.initPcPageIndex = function() {
-  var items = $('.pc-page-index .tab-item');
+ExternalJs.initPcPageIndex = function(id) {
+  var items = $('.pc-page-index .tab-item', '#'+ id);
   var namelist = items.map(function() {
     return $(this).data('name');
   });
-  var traceNum = $('.pc-page-index').data('trace-num');
-  $('.pc-page-index').on('click', '.tabs-header>.tabs-wrap>ul.tabs li', function() {
+  var traceNum = $('.pc-page-index', '#'+ id).data('trace-num');
+  $('.pc-page-index', '#'+ id).on('click', '.tabs-header>.tabs-wrap>ul.tabs li', function() {
     var index = $(this).index();
     var apiname = namelist[index];
-    var panel = $('.pc-page-index>.tabs-panels>.panel:eq('+ index + ')>.panel-body');
+    var panel = $('.pc-page-index>.tabs-panels>.panel:eq('+ index + ')>.panel-body', '#'+ id);
     if(panel.html().trim() === '') {
       switch(apiname) {
         case 'product':
@@ -246,7 +246,7 @@ ExternalJs.initPcPageIndex = function() {
     }
   });
   setTimeout(function(){
-    $('.pc-page-index ul.tabs li:first').trigger('click');
+    $('.pc-page-index ul.tabs li:first', '#'+ id).trigger('click');
   }, 500);
 };
 
