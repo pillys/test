@@ -52,37 +52,39 @@
         var _ = '';
         var duid = $NODETPL.duid();
         guid = guid || $NODETPL.guid();
-        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}#' + guid + ' .info-basic {  height: 200px;}</style>';
+        _ += '<style>#' + guid + ' {  height: 100%;  overflow: auto;}#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail ul li {  line-height: 30px;}#' + guid + ' .content-detail ul li a {  color: #333;}</style>';
         try {
-          _ += '<div id="' + guid + '" class="easyui-layout" style="height:100%">\n  <div class="info-basic" data-options="region:\'north\',title:\'基本信息\',split:true">\n    ';
-          $DATA.data.baseInfo.forEach(function(item) {
-            _ += '\n      <div class="content-title">';
-            if (typeof item.key !== 'undefined') {
-              _ += $NODETPL.escapeHtml(item.key);
-            }
+          _ += '<div id="' + guid + '" class="easyui-layout">\n  ';
+          if ($DATA.data.length > 0) {
+            _ += '\n    ';
+            $DATA.data.forEach(function(item) {
+              _ += '\n      <div class="content-title">';
+              if (typeof item.key !== 'undefined') {
+                _ += $NODETPL.escapeHtml(item.key);
+              }
 
-            _ += '</div>\n      <div class="content-detail">\n        ';
-            if (typeof item.value !== 'undefined') {
-              _ += $NODETPL.escapeHtml(item.value);
-            }
+              _ += '</div>\n      <div class="content-detail">\n        <ul>\n          <li><a href="';
+              if (typeof item.url !== 'undefined') {
+                _ += $NODETPL.escapeHtml(item.url);
+              }
 
-            _ += '\n      </div>\n    ';
-          });
-          _ += '\n  </div>\n  <div class="info-details" data-options="region:\'center\',title:\'生产过程\'">\n    ';
-          $DATA.data.productionInfo.forEach(function(item) {
-            _ += '\n      <div class="content-title">';
-            if (typeof item.key !== 'undefined') {
-              _ += $NODETPL.escapeHtml(item.key);
-            }
+              _ += '" title="';
+              if (typeof item.key !== 'undefined') {
+                _ += $NODETPL.escapeHtml(item.key);
+              }
 
-            _ += '</div>\n      <div class="content-detail">\n        ';
-            if (typeof item.value !== 'undefined') {
-              _ += $NODETPL.escapeHtml(item.value);
-            }
+              _ += '">';
+              if (typeof item.value !== 'undefined') {
+                _ += $NODETPL.escapeHtml(item.value);
+              }
 
-            _ += '\n      </div>\n    ';
-          });
-          _ += '\n  </div>\n</div>';
+              _ += '</a></li>\n        </ul>\n      </div>\n    ';
+            });
+            _ += '\n  ';
+          } else {
+            _ += '\n    <p>未找到相关数据。</p>\n  ';
+          }
+          _ += '\n</div>';
         } catch (e) {
           console.log(e, e.stack);
         }
@@ -114,8 +116,14 @@
         var SUBROOT = document.getElementById(guid + duid);
         var $TPLS = $NODETPL.tpls;
         var $DATA = $NODETPL.datas[duid];
-        $(ROOT).layout({
-          fit: true
+        $(ROOT).find('.content-detail a').on('click', function() {
+          $dialog({
+            title: $(this).attr('title'),
+            url: $(this).attr('href'),
+            width: 890,
+            height: 570
+          });
+          return false;
         });
       }
     };

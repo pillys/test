@@ -1,4 +1,8 @@
 <style>
+$ROOT {
+  height: 100%;
+  overflow: auto;
+}
 .content-title {
   background-color: #daedf5;
   border-bottom: 1px solid #aed1eb;
@@ -13,7 +17,7 @@
   max-height: 400px;
 }
 </style>
-<div id="$ROOT">
+<div id="$ROOT" class="easyui-layout">
 <?@data.forEach(function(item) {?>
   <div class="content-title"><?=item.key?></div>
   <div class="content-detail">

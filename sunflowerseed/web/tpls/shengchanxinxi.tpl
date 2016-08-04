@@ -1,37 +1,43 @@
 <style>
+$ROOT {
+  height: 100%;
+  overflow: auto;
+}
 .content-title {
   background-color: #daedf5;
   border-bottom: 1px solid #aed1eb;
   line-height: 30px;
   padding: 0 1em;
 }
-.content-detail {
-  padding: 1em;
+.content-detail ul li {
+  line-height: 30px;
 }
-.info-basic {
-  height: 200px;
+.content-detail ul li a {
+  color: #333;
 }
 </style>
-<div id="$ROOT" class="easyui-layout" style="height:100%">
-  <div class="info-basic" data-options="region:'north',title:'基本信息',split:true">
-    <?@data.baseInfo.forEach(function(item) {?>
+<div id="$ROOT" class="easyui-layout">
+  <?if(@data.length > 0) {?>
+    <?@data.forEach(function(item) {?>
       <div class="content-title"><?=item.key?></div>
       <div class="content-detail">
-        <?=item.value?>
+        <ul>
+          <li><a href="<?=item.url?>" title="<?=item.key?>"><?=item.value?></a></li>
+        </ul>
       </div>
     <?});?>
-  </div>
-  <div class="info-details" data-options="region:'center',title:'生产过程'">
-    <?@data.productionInfo.forEach(function(item) {?>
-      <div class="content-title"><?=item.key?></div>
-      <div class="content-detail">
-        <?=item.value?>
-      </div>
-    <?});?>
-  </div>
+  <?} else {?>
+    <p>未找到相关数据。</p>
+  <?}?>
 </div>
 <script>
-$(ROOT).layout({
-  fit: true
+$(ROOT).find('.content-detail a').on('click', function(){
+  $dialog({
+    title: $(this).attr('title'),
+    url: $(this).attr('href'),
+    width: 890,
+    height: 570
+  });
+  return false;
 });
 </script>

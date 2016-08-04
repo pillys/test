@@ -52,9 +52,9 @@
         var _ = '';
         var duid = $NODETPL.duid();
         guid = guid || $NODETPL.guid();
-        _ += '<style>#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}#' + guid + ' .text-center {  text-align: center;}</style>';
+        _ += '<style>#' + guid + ' {  height: 100%;  overflow: auto;}#' + guid + ' .content-title {  background-color: #daedf5;  border-bottom: 1px solid #aed1eb;  line-height: 30px;  padding: 0 1em;}#' + guid + ' .content-detail {  padding: 1em;}#' + guid + ' .text-center {  text-align: center;}</style>';
         try {
-          _ += '<div id="' + guid + '">\n';
+          _ += '<div id="' + guid + '" class="easyui-layout">\n';
           $DATA.data.forEach(function(item) {
             _ += '\n  <div class="content-title">';
             if (typeof item.key !== 'undefined') {

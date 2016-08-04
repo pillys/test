@@ -1,4 +1,8 @@
 <style>
+$ROOT {
+  height: 100%;
+  overflow: auto;
+}
 .content-title {
   background-color: #daedf5;
   border-bottom: 1px solid #aed1eb;
@@ -12,7 +16,7 @@
   height: 200px;
 }
 </style>
-<div id="$ROOT" class="easyui-layout" style="height:100%">
+<div id="$ROOT" class="easyui-layout">
   <?if(@data.length > 0) {?>
     <?@data.forEach(function(item) {?>
       <div class="item-box">
