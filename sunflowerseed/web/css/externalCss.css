@@ -2314,7 +2314,7 @@
   background-color: #000;
 }
 .scanner .scan-main .scan-box .scan-text {
-  line-height: 300px;
+  margin-top: 50px;
   text-align: center;
   color: #eee;
 }

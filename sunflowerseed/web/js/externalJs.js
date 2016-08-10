@@ -117,8 +117,12 @@ ExternalJs.scan = function(callback) {
     if(event.keyCode === 13) {
       var inputer = $(this);
       var originalTraceNum = inputer.val();
+      if(!originalTraceNum) {
+        return false;
+      }
       scanText.text('已扫描，正在处理...');
       originalTraceNum = originalTraceNum.replace(/^.*traceView\/([^.\/]+).*$/, '$1');
+      inputer.val('').focus();
       callback.call({
         inputer: inputer,
         text: scanText
@@ -126,6 +130,40 @@ ExternalJs.scan = function(callback) {
     }
   }).focus();
 };
+
+ExternalJs.rfidAdd = function(pvListId) {
+  var count = 0;
+  var codes = [];
+  this.scan(function(v) {
+    var codebetch = '';
+    var textLabel = this.text;
+    count++;
+    codes.push(v);
+    textLabel.html(codes.join('<br />'));
+    if(codes.length === 5) {
+      codebetch = codes.join(',');
+      console.log(codebetch);
+      textLabel.html(codes.join('<br />') + '<br />正在保存...');
+      codes.length = 0;
+      $.ajax({
+        url: '/rfidAdd.action?ajax=11&traceNumStr='+ encodeURIComponent(codebetch),
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          if(data.rfidList) {
+            for(var i=0; i<data.rfidList.length; i++) {
+              $('#'+ pvListId).datagrid('insertRow', {
+                row: data.rfidList[i]
+              });
+            }
+            textLabel.html(textLabel.html().replace('正在保存...', '保存成功！'));
+          }
+        }
+      });
+    }
+  });
+};
+
 ExternalJs.DataGrid = {};
 ExternalJs.DataGrid.AppendRow = function(jqid, url) {
   ExternalJs.scan(function(num) {
@@ -152,7 +190,6 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
           $(jqid).datagrid('l_appendRow', data.data);
           //scanner.remove();
           scanner.text.text('等待扫描二维码');
-          scanner.inputer.val('').focus();
         } else {
           scanner.text.text(data.msg);
         }
