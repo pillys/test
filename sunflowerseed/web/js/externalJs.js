@@ -180,7 +180,7 @@ ExternalJs.initPcPageIndex = function(id) {
             data: {
               traceNum: traceNum
             },
-            dataType: 'json',
+            dataType: 'jsonp',
             cache: false,
             success: function(data) {
               if(data.flag === 1) {
@@ -205,7 +205,7 @@ ExternalJs.initPcPageIndex = function(id) {
             data: {
               traceNum: traceNum
             },
-            dataType: 'json',
+            dataType: 'jsonp',
             cache: false,
             success: function(data) {
               if(data.flag === 1) {
@@ -223,7 +223,7 @@ ExternalJs.initPcPageIndex = function(id) {
             data: {
               traceNum: traceNum
             },
-            dataType: 'json',
+            dataType: 'jsonp',
             cache: false,
             success: function(data) {
               if(data.flag === 1) {
@@ -241,7 +241,7 @@ ExternalJs.initPcPageIndex = function(id) {
             data: {
               traceNum: traceNum
             },
-            dataType: 'json',
+            dataType: 'jsonp',
             cache: false,
             success: function(data) {
               if(data.flag === 1) {

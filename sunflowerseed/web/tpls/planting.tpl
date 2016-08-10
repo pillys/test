@@ -77,7 +77,7 @@ $('.planting-tree ul li', ROOT).on('click', function() {
         data: {
           traceNum: $DATA.traceNum
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function(data) {
           nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/zhongzhixinxi/nonghujieshao.js', data, function(d) {
             detailPanel.html(d);
@@ -92,7 +92,7 @@ $('.planting-tree ul li', ROOT).on('click', function() {
         data: {
           traceNum: $DATA.traceNum
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function(data) {
           nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/zhongzhixinxi/turangxinxi.js', data, function(d) {
             detailPanel.html(d);
@@ -107,7 +107,7 @@ $('.planting-tree ul li', ROOT).on('click', function() {
         data: {
           traceNum: $DATA.traceNum
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function(data) {
           nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/zhongzhixinxi/zhongzixinxi.js', data, function(d) {
             detailPanel.html(d);
@@ -122,7 +122,7 @@ $('.planting-tree ul li', ROOT).on('click', function() {
         data: {
           traceNum: $DATA.traceNum
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function(data) {
           nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/zhongzhixinxi/zaipeixinxi.js', data, function(d) {
             detailPanel.html(d);
@@ -137,7 +137,7 @@ $('.planting-tree ul li', ROOT).on('click', function() {
         data: {
           traceNum: $DATA.traceNum
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function(data) {
           nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/zhongzhixinxi/jianyanbaogao.js', data, function(d) {
             detailPanel.html(d);
@@ -152,7 +152,7 @@ $('.planting-tree ul li', ROOT).on('click', function() {
         data: {
           traceNum: $DATA.traceNum
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function(data) {
           nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/zhongzhixinxi/shengzhanghuanjing.js', data, function(d) {
             detailPanel.html(d);
