@@ -96,9 +96,7 @@ ExternalJs.addButtonToTopDialog = function() {
     }
   }
 };
-
-ExternalJs.DataGrid = {};
-ExternalJs.DataGrid.AppendRow = function(jqid, url) {
+ExternalJs.scan = function(callback) {
   var scanner = $('<div class="scanner">' +
       '  <div class="scan-main">' +
       '    <a class="close">&times;</a>' +
@@ -120,35 +118,47 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
       var inputer = $(this);
       var originalTraceNum = inputer.val();
       scanText.text('已扫描，正在处理...');
-      $.ajax({
-        url: url,
-        type: 'get',
-        data: {
-          originalTraceNum: originalTraceNum
-        },
-        dataType: 'jsonp',
-        success: function(data) {
-          if(data.flag === 1) {
-            /*data = {
-              flag: 1,
-              data: {
-                goodsNum: '123',
-                goods: {
-                  title: '阿里山葵花籽',
-                  id: 1
-                }
-              }
-            }*/
-            $(jqid).datagrid('l_appendRow', data.data);
-            //scanner.remove();
-            inputer.val('');
-          } else {
-            scanText.text(data.msg);
-          }
-        }
-      });
+      originalTraceNum = originalTraceNum.replace(/^.*traceView\/([^.\/]+).*$/, '$1');
+      callback.call({
+        inputer: inputer,
+        text: scanText
+      }, originalTraceNum);
     }
   }).focus();
+};
+ExternalJs.DataGrid = {};
+ExternalJs.DataGrid.AppendRow = function(jqid, url) {
+  ExternalJs.scan(function(num) {
+    var scanner = this;
+    $.ajax({
+      url: url,
+      type: 'get',
+      data: {
+        originalTraceNum: num
+      },
+      dataType: 'jsonp',
+      success: function(data) {
+        if(data.flag === 1) {
+          /*data = {
+            flag: 1,
+            data: {
+              goodsNum: '123',
+              goods: {
+                title: '阿里山葵花籽',
+                id: 1
+              }
+            }
+          }*/
+          $(jqid).datagrid('l_appendRow', data.data);
+          //scanner.remove();
+          scanner.text.text('等待扫描二维码');
+          scanner.inputer.val('').focus();
+        } else {
+          scanner.text.text(data.msg);
+        }
+      }
+    });
+  });
 };
 
 ExternalJs.initPcPageIndex = function(id) {
@@ -256,13 +266,12 @@ ExternalJs.initPcPageIndex = function(id) {
     'http://api.map.baidu.com/getscript?v=2.0&ak=sQnBbFYNEFNDt0gw7OaDB2V09TOwjp4N&services=&t=20160623234740'
   ], function() {
     var userPoint = '';
-    var content = `
-      <form method="get" style="margin-bottom:10px;">
-        <input type="text" class="map-keywords" size="30" />
-        <input type="submit" class="vd-btn map-button" value="搜索位置" />
-      </form>
-      <div id="l-map" style="height:400px;width:600px;"></div>
-    `;
+    var content = '' +
+      '<form method="get" style="margin-bottom:10px;">' +
+      '  <input type="text" class="map-keywords" size="30" />' +
+      '  <input type="submit" class="vd-btn map-button" value="搜索位置" />' +
+      '</form>' +
+      '<div id="l-map" style="height:400px;width:600px;"></div>';
     $('body').on('click', 'input[name="plough.coordinates"]', function() {
       var coordinates = $(this);
       var userPointArr, apoint, bpoint;
