@@ -142,7 +142,6 @@ ExternalJs.rfidAdd = function(pvListId) {
     textLabel.html(codes.join('<br />'));
     if(codes.length === 5) {
       codebetch = codes.join(',');
-      console.log(codebetch);
       textLabel.html(codes.join('<br />') + '<br />正在保存...');
       codes.length = 0;
       $.ajax({
