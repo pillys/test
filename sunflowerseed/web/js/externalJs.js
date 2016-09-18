@@ -223,16 +223,11 @@ ExternalJs.outboundScan = function(listId) {
             alert('数据已存在，不可重复录入！');
             return false;
           }
-          //$('#'+ listId).datagrid('l_appendRow', data.pile);
-          console.log('------');
-          console.log({
-            'pile.id': data.pile.id,
-            'pile.pileName': data.pile.pileName,
-          });
-          console.log('------');
           $('#'+ listId).datagrid('l_appendRow', {
-            'pile.id': data.pile.id,
-            'pile.pileName': data.pile.pileName,
+            pile: {
+              id: data.pile.id,
+              pileName: data.pile.pileName
+            }
           });
         }
       }
