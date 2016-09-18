@@ -176,16 +176,6 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
       dataType: 'jsonp',
       success: function(data) {
         if(data.flag === 1) {
-          /*data = {
-            flag: 1,
-            data: {
-              goodsNum: '123',
-              goods: {
-                title: '阿里山葵花籽',
-                id: 1
-              }
-            }
-          }*/
           $(jqid).datagrid('l_appendRow', data.data);
           //scanner.remove();
           scanner.text.text('等待扫描二维码');
@@ -201,33 +191,44 @@ ExternalJs.outboundScan = function(listId) {
   ExternalJs.scan(function(v) {
     var textLabel = decodeURIComponent(this.text);
     //v = 'id_挂牌账name|id_仓库name|id_品类name';
-    var scanArray = v.split('|').map(function(v) {
-      return v.split('_');
-    });
-    var layOutBody = $('.panel.window .layout-body');
-    var seedId = layOutBody.find('input[name="materialStockOut.seed.id"]');
-    var seedName = layOutBody.find('input[name="materialStockOut.hi_seed.name"]');
-    var storageId = layOutBody.find('input[name="materialStockOut.hi_storage.id"]');
-    var storageName = layOutBody.find('input[name="materialStockOut.hi_storage.name"]');
-    var currentData = $('#'+ dataGridId).datagrid('getData');
-    var exists = currentData.rows.find(function(v) {
-      return v.pile.id == scanArray[0][0];
-    });
-    if(seedId.val() !== '' || seedId.val() !== scanArray[2][0]) {
-      alert('出库信息与先期扫描不符。');
-      return false;
-    }
-    seedId.val(scanArray[2][0]);
-    seedName.val(scanArray[2][1]);
-    storageId.val(scanArray[1][0]);
-    storageName.val(scanArray[1][1]);
-    if(exists) {
-      alert('数据已存在，不可重复录入！');
-      return false;
-    }
-    $('#'+ dataGridId).datagrid('l_appendRow', {
-      'pile.id': scanArray[0][0],
-      'pile.pileName': scanArray[0][1]
+    $.ajax({
+      url: '/pileEdit.action',
+      type: 'get',
+      data: {
+        ajax: 11,
+        'pile.id': v
+      },
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        if(data.statusCode === 200) {
+          var layOutBody = $('.panel.window .layout-body');
+          var seedId = layOutBody.find('input[name="materialStockOut.seed.id"]');
+          var seedName = layOutBody.find('input[name="materialStockOut.hi_seed.name"]');
+          var storageId = layOutBody.find('input[name="materialStockOut.hi_storage.id"]');
+          var storageName = layOutBody.find('input[name="materialStockOut.hi_storage.name"]');
+          var currentData = $('#'+ dataGridId).datagrid('getData');
+          var exists = currentData.rows.find(function(v) {
+            return v.pile.id == data.pile.id;
+          });
+          if(seedId.val() !== '' || seedId.val() !== scanArray[2][0]) {
+            alert('出库信息与先期扫描不符。');
+            return false;
+          }
+          seedId.val(data.pile.seed.id);
+          seedName.val(data.pile.seed.name);
+          storageId.val(data.pile.storage.id);
+          storageName.val(data.pile.storage.name);
+          if(exists) {
+            alert('数据已存在，不可重复录入！');
+            return false;
+          }
+          $('#'+ dataGridId).datagrid('l_appendRow', {
+            'pile.id': data.pile.id,
+            'pile.pileName': data.pile.pileName
+          });
+        }
+      }
     });
   });
 };
