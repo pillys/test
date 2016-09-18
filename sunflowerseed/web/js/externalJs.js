@@ -207,12 +207,12 @@ ExternalJs.outboundScan = function(listId) {
           var seedName = layOutBody.find('input[name="materialStockOut.hi_seed.name"]');
           var storageId = layOutBody.find('input[name="materialStockOut.hi_storage.id"]');
           var storageName = layOutBody.find('input[name="materialStockOut.hi_storage.name"]');
-          var currentData = $('#'+ dataGridId).datagrid('getData');
+          var currentData = $('#'+ listId).datagrid('getData');
           var exists = currentData.rows.find(function(v) {
             return v.pile.id == data.pile.id;
           });
-          if(seedId.val() !== '' || seedId.val() !== scanArray[2][0]) {
-            alert('出库信息与先期扫描不符。');
+          if(seedId.val() !== '' && seedId.val() !== data.pile.seed.id) {
+            alert('出库信息与先期扫描不符('+ seedId.val() + '!='+ data.pile.seed.id + ')。');
             return false;
           }
           seedId.val(data.pile.seed.id);
@@ -223,7 +223,8 @@ ExternalJs.outboundScan = function(listId) {
             alert('数据已存在，不可重复录入！');
             return false;
           }
-          $('#'+ dataGridId).datagrid('l_appendRow', {
+          //$('#'+ listId).datagrid('l_appendRow', data.pile);
+          $('#'+ listId).datagrid('l_appendRow', {
             'pile.id': data.pile.id,
             'pile.pileName': data.pile.pileName
           });
