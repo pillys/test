@@ -199,8 +199,8 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
 
 ExternalJs.outboundScan = function(listId) {
   ExternalJs.scan(function(v) {
-    var textLabel = this.text;
-    v = 'id_挂牌账name|id_仓库name|id_品类name';
+    var textLabel = decodeURIComponent(this.text);
+    //v = 'id_挂牌账name|id_仓库name|id_品类name';
     var scanArray = v.split('|').map(function(v) {
       return v.split('_');
     });
