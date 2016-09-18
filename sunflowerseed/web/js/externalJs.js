@@ -224,9 +224,15 @@ ExternalJs.outboundScan = function(listId) {
             return false;
           }
           //$('#'+ listId).datagrid('l_appendRow', data.pile);
+          console.log('------');
+          console.log({
+            'pile.id': data.pile.id,
+            'pile.pileName': data.pile.pileName,
+          });
+          console.log('------');
           $('#'+ listId).datagrid('l_appendRow', {
             'pile.id': data.pile.id,
-            'pile.pileName': data.pile.pileName
+            'pile.pileName': data.pile.pileName,
           });
         }
       }
