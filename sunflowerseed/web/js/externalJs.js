@@ -205,7 +205,7 @@ ExternalJs.outboundScan = function(listId) {
           var layOutBody = $('.panel.window .layout-body');
           var seedId = layOutBody.find('input[name="materialStockOut.seed.id"]');
           var seedName = layOutBody.find('input[name="materialStockOut.hi_seed.name"]');
-          var storageId = layOutBody.find('input[name="materialStockOut.hi_storage.id"]');
+          var storageId = layOutBody.find('input[name="materialStockOut.storage.id"]');
           var storageName = layOutBody.find('input[name="materialStockOut.hi_storage.name"]');
           var currentData = $('#'+ listId).datagrid('getData');
           var exists = currentData.rows.find(function(v) {
