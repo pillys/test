@@ -191,6 +191,8 @@ ExternalJs.outboundScan = function(listId) {
   ExternalJs.scan(function(v) {
     v = decodeURIComponent(v.replace(/^PILE_/i, ''));
     //v = 'id_挂牌账name|id_仓库name|id_品类name';
+    this.inputer.val('');
+    this.text.text(v);
     $.ajax({
       url: '/pileEdit.action',
       type: 'get',
