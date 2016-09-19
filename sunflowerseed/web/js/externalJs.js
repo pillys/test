@@ -239,7 +239,7 @@ ExternalJs.outboundScan = function(listId) {
           var exists = currentData.rows.find(function(v) {
             return v.pile.id == data.pile.id;
           });
-          if(seedId.val() !== '' && seedId.val() !== data.pile.seed.id.toString()) {
+          if(!seedId.val() && seedId.val() !== data.pile.seed.id.toString()) {
             alert('出库信息与先期扫描不符('+ seedId.val() + '!='+ data.pile.seed.id + ')。');
             return false;
           }
