@@ -189,7 +189,7 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
 
 ExternalJs.outboundScan = function(listId) {
   ExternalJs.scan(function(v) {
-    var textLabel = decodeURIComponent(this.text.replace(/^PILE_/i, ''));
+    v = decodeURIComponent(v.replace(/^PILE_/i, ''));
     //v = 'id_挂牌账name|id_仓库name|id_品类name';
     $.ajax({
       url: '/pileEdit.action',
