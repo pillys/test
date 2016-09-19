@@ -229,6 +229,7 @@ ExternalJs.outboundScan = function(listId) {
       dataType: 'json',
       cache: false,
       success: function(data) {
+        console.log(data);
         if(data.statusCode === 200) {
           var layOutBody = $('.panel.window .layout-body');
           var seedId = layOutBody.find('input[name$="StockOut.seed.id"]');
@@ -241,6 +242,10 @@ ExternalJs.outboundScan = function(listId) {
           });
           if(seedId.val() !== '' && seedId.val() !== data.pile.seed.id.toString()) {
             alert('出库信息与先期扫描不符('+ seedId.val() + '!='+ data.pile.seed.id + ')。');
+            return false;
+          }
+          if(!data.pile || !data.pile.seed || !data.pile.storage) {
+            alert('找不到对应的信息。');
             return false;
           }
           seedId.val(data.pile.seed.id);
