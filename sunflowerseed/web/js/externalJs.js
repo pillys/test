@@ -141,7 +141,6 @@ ExternalJs.scan = function(callback) {
     $(this).focus();
   }).on('keydown', function(event) {
     if(event.keyCode === 13) {
-      alert(13);
       var inputer = $(this);
       var originalTraceNum = inputer.val();
       if(!originalTraceNum) {
@@ -216,12 +215,10 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
 
 ExternalJs.outboundScan = function(listId) {
   ExternalJs.scan(function(v) {
-    alert('扫描完毕');
     v = decodeURIComponent(v.replace(/^PILE_/i, ''));
     //v = 'id_挂牌账name|id_仓库name|id_品类name';
     this.inputer.val('');
     this.text.text(v);
-    alert(v);
     $.ajax({
       url: '/pileEdit.action',
       type: 'get',
