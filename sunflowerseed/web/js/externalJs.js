@@ -77,8 +77,11 @@ ExternalJs.load = function(url, callback) {
 };
 ExternalJs.printPageAutoSize = function(page) {
   var iframe = document.getElementById(page);
-  iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-  iframe.style.width = Math.max(600, iframe.contentWindow.document.body.scrollWidth) + 'px';
+  var idocument = iframe.contentWindow.document;
+  var width = idocument.documentElement.scrollWidth || idocument.body.scrollWidth;
+  var height = idocument.documentElement.scrollHeight || idocument.body.scrollHeight;
+  iframe.style.height = height + 'px';
+  iframe.style.width = Math.max(600, width) + 'px';
   vdialog.top.position();
 };
 ExternalJs.printPage = function(url) {
@@ -150,6 +153,7 @@ ExternalJs.scan = function(callback) {
       originalTraceNum = originalTraceNum.replace(/^.*traceView\/([^.\/]+).*$/, '$1');
       inputer.val('').focus();
       callback.call({
+        scanner: scanner,
         inputer: inputer,
         text: scanText
       }, originalTraceNum);
@@ -229,7 +233,6 @@ ExternalJs.outboundScan = function(listId) {
       dataType: 'json',
       cache: false,
       success: function(data) {
-        console.log(data);
         if(data.statusCode === 200) {
           var layOutBody = $('.panel.window .layout-body');
           var seedId = layOutBody.find('input[name$="StockOut.seed.id"]');
@@ -265,6 +268,14 @@ ExternalJs.outboundScan = function(listId) {
         }
       }
     });
+  });
+};
+
+ExternalJs.pcPageScan = function(input) {
+  this.scan(function(num) {
+    input.val(num);
+    this.scanner.remove();
+    input.focus();
   });
 };
 

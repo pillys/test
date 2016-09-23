@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>出库单</title>
+<style>
+html,body{
+  margin: 0;
+  padding: 0;
+}
+h1{
+  text-align: center;
+}
+table{
+  width: 700px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.text-center {
+  text-align: center;
+}
+.sub-table {
+  table-layout: fixed;
+}
+.sub-table td {
+  padding: 0 .5em;
+}
+.sub-table td .line-field {
+  margin-left: 2em;
+  text-indent: -2em;
+  border-bottom: 1px solid #000;
+}
+.sub-table td .line-field em {
+  font-style: normal;
+  margin-right: .5em;
+}
+.main-table{
+  border-color: '#000';
+}
+.main-table th,
+.main-table td{
+  padding: 5px 10px;
+}
+.main-table .m-cell {
+  padding: 0 2px;
+  width: 10px;
+}
+.main-footer{
+  margin-top: 20px;
+}
+.main-footer th{
+  text-align: left;
+}
+.main-footer th,
+.main-footer td{
+  padding: 5px 10px;
+}
+</style>
+</head>
+<body>
+<h1>某某某公司出库单</h1>
+<table class="sub-table">
+  <tbody>
+    <tr>
+      <td align="right">
+        xx 年 xx 月 xx 日
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="main-table" border="1">
+  <thead>
+    <tr>
+      <th>品名</th>
+      <th>规则</th>
+      <th>单位</th>
+      <th>数量</th>
+      <th>单价</th>
+      <th class="m-cell">百</th>
+      <th class="m-cell">十</th>
+      <th class="m-cell">万</th>
+      <th class="m-cell">千</th>
+      <th class="m-cell">百</th>
+      <th class="m-cell">十</th>
+      <th class="m-cell">元</th>
+      <th class="m-cell">角</th>
+      <th class="m-cell">分</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+      <td class="m-cell"></td>
+    </tr>
+    <tr>
+      <th>合计人民币（大写）</th>
+      <td colspan="14">百 十 万 千 百 十 元 角 分</td>
+    </tr>
+  </tbody>
+</table>
+<table class="main-footer">
+  <tr>
+    <th>收购人：</th>
+    <td>xx</td>
+    <th>保管：</th>
+    <td>xx</td>
+    <th>会计：</th>
+    <td>xx</td>
+  </tr>
+</table>
+</body>
+</html>
