@@ -272,10 +272,12 @@ ExternalJs.outboundScan = function(listId) {
 };
 
 ExternalJs.pcPageScan = function(input) {
+  input = $(input);
   this.scan(function(num) {
     input.val(num);
     this.scanner.remove();
     input.focus();
+    showTraceInfo();
   });
 };
 
