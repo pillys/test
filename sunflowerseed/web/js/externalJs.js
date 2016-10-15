@@ -25,7 +25,11 @@ if (!Array.prototype.find) {
 
 
 var ExternalJs = {};
-ExternalJs.cache = {},
+ExternalJs.Domain = {
+  wwwRoot: 'http://202.85.222.47:8083',
+  h5Root: 'http://test.qque.com'
+};
+ExternalJs.cache = {};
 ExternalJs.load = function(url, callback) {
   var count = 0;
   if(Object.prototype.toString.call(url) === '[object Array]') {
@@ -340,7 +344,7 @@ ExternalJs.initPcPageIndex = function(id) {
       switch(apiname) {
         case 'product':
           $.ajax({
-            url: 'http://202.85.222.47:8083/traceGoods.action',
+            url: ExternalJs.Domain.wwwRoot + '/traceGoods.action',
             type: 'get',
             data: {
               traceNum: traceNum
@@ -349,7 +353,7 @@ ExternalJs.initPcPageIndex = function(id) {
             cache: false,
             success: function(data) {
               if(data.flag === 1) {
-                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/product.js', data, function(d) {
+                nodetpl.get(ExternalJs.Domain.h5Root + '/sunflowerseed/web/tpls/product.js', data, function(d) {
                   $(d).appendTo(panel);
                 });
               }
@@ -357,7 +361,7 @@ ExternalJs.initPcPageIndex = function(id) {
           });
           break;
         case 'planting':
-          nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/planting.js', {
+          nodetpl.get(ExternalJs.Domain.h5Root + '/sunflowerseed/web/tpls/planting.js', {
             traceNum: traceNum
           }, function(d) {
             $(d).appendTo(panel);
@@ -365,7 +369,7 @@ ExternalJs.initPcPageIndex = function(id) {
           break;
         case 'production':
           $.ajax({
-            url: 'http://202.85.222.47:8083/traceProduction.action',
+            url: ExternalJs.Domain.wwwRoot + '/traceProduction.action',
             type: 'get',
             data: {
               traceNum: traceNum
@@ -374,7 +378,7 @@ ExternalJs.initPcPageIndex = function(id) {
             cache: false,
             success: function(data) {
               if(data.flag === 1) {
-                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/shengchanxinxi.js', data, function(d) {
+                nodetpl.get(ExternalJs.Domain.h5Root + '/sunflowerseed/web/tpls/shengchanxinxi.js', data, function(d) {
                   $(d).appendTo(panel);
                 });
               }
@@ -383,7 +387,7 @@ ExternalJs.initPcPageIndex = function(id) {
           break;
         case 'logistics':
           $.ajax({
-            url: 'http://202.85.222.47:8083/traceLogistics.action',
+            url: ExternalJs.Domain.wwwRoot + '/traceLogistics.action',
             type: 'get',
             data: {
               traceNum: traceNum
@@ -392,7 +396,7 @@ ExternalJs.initPcPageIndex = function(id) {
             cache: false,
             success: function(data) {
               if(data.flag === 1) {
-                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/wuliuxinxi.js', data, function(d) {
+                nodetpl.get(ExternalJs.Domain.h5Root + '/sunflowerseed/web/tpls/wuliuxinxi.js', data, function(d) {
                   $(d).appendTo(panel);
                 });
               }
@@ -401,7 +405,7 @@ ExternalJs.initPcPageIndex = function(id) {
           break;
         case 'retail':
           $.ajax({
-            url: 'http://202.85.222.47:8083/traceRetail.action',
+            url: ExternalJs.Domain.wwwRoot + '/traceRetail.action',
             type: 'get',
             data: {
               traceNum: traceNum
@@ -410,7 +414,7 @@ ExternalJs.initPcPageIndex = function(id) {
             cache: false,
             success: function(data) {
               if(data.flag === 1) {
-                nodetpl.get('http://test.qque.com/sunflowerseed/web/tpls/lingshouxinxi.js', data, function(d) {
+                nodetpl.get(ExternalJs.Domain.h5Root + '/sunflowerseed/web/tpls/lingshouxinxi.js', data, function(d) {
                   $(d).appendTo(panel);
                 });
               }
