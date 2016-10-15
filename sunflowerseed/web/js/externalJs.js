@@ -278,6 +278,7 @@ ExternalJs.startPackage = function() {
   ExternalJs.scan(function(num) {
     var scanner = this;
     if(nums.indexOf(num) !== -1) {
+      scanner.text.html(nums.join('<br/>'));
       return;
     }
     nums.push(num);
