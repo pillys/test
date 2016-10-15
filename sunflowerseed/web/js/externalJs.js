@@ -271,6 +271,43 @@ ExternalJs.outboundScan = function(listId) {
   });
 };
 
+ExternalJs.startPackage = function() {
+  //startPackage.action?ajac=11&traceNumStr=
+  var count = 0;
+  var nums = [];
+  ExternalJs.scan(function(num) {
+    var scanner = this;
+    nums.push(num);
+    scanner.text.html(nums.join('<br/>'));
+    if(nums.length === 5) {
+      var traceNumStr = nums.join(',');
+      scanner.inputer.readOnly = true;
+      $.ajax({
+        url: '/startPackage.action?ajac=11',
+        type: 'get',
+        data: {
+          traceNumStr: traceNumStr
+        },
+        dataType: 'json',
+        success: function(data) {
+          scanner.inputer.readOnly = false;
+          if(data.flag === 1) {
+            count++;
+            nums.length = 0;
+            scanner.text.html('第 '+ count + ' 组装箱完成<br/><br/>继续装箱请扫码<br/>结束装箱请关闭');
+          } else {
+            scanner.text.text(data.msg);
+          }
+        },
+        error: function(){
+          alert('网络错误，请重试！');
+        }
+      });
+    }
+    
+  });
+};
+
 ExternalJs.pcPageScan = function(input) {
   input = $(input);
   this.scan(function(num) {
