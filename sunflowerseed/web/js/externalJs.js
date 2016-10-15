@@ -288,7 +288,7 @@ ExternalJs.startPackage = function() {
       scanner.inputer.readOnly = true;
       $.ajax({
         url: '/startPackage.action?ajax=11',
-        type: 'get',
+        type: 'post',
         data: {
           traceNumStr: traceNumStr
         },
