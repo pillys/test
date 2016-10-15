@@ -301,6 +301,9 @@ ExternalJs.startPackage = function() {
             scanner.text.html('第 '+ count + ' 组装箱完成<br/><br/>继续装箱请扫码<br/>结束装箱请关闭');
           } else {
             scanner.text.html(data.error);
+            alert('该组请重新扫描！');
+            nums.length = 0;
+            scanner.inputer.focus();
           }
         },
         error: function(){
