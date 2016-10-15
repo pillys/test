@@ -238,22 +238,31 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
     alert('请选择传送带！');
     return false;
   }
-  $.ajax({
-    url: '/getPackageByDevice.action?ajax=11',
-    type: 'get',
-    data: {
-      stockOutNum: stockOutNum.val(),
-      deviceId: device.val()
-    },
-    dataType: 'json',
-    success: function(data) {
-      if(data.flag === 1) {
-        data.data.forEach(function(d) {
-          $(jqid).datagrid('l_appendRow', d);
-        });
-      }
+  var isActive = true;
+  function loop() {
+    if(isActive) {
+      $.ajax({
+        url: '/getPackageByDevice.action?ajax=11',
+        type: 'get',
+        data: {
+          stockOutNum: stockOutNum.val(),
+          deviceId: device.val()
+        },
+        dataType: 'json',
+        success: function(data) {
+          if(data.flag === 1) {
+            data.data.forEach(function(d) {
+              $(jqid).datagrid('l_appendRow', d);
+            });
+            setTimeout(loop, 1000);
+          }
+        }
+      });
     }
-  });
+  }
+
+  loop();
+  
   ExternalJs.scan(function(num) {
     var scanner = this;
     $.ajax({
@@ -287,6 +296,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
           data.data.forEach(function(d) {
             $(jqid).datagrid('l_appendRow', d);
           });
+          isActive = false;
           onfinish && onfinish();
         }
       }
