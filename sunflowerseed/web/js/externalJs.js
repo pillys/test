@@ -283,7 +283,7 @@ ExternalJs.startPackage = function() {
       var traceNumStr = nums.join(',');
       scanner.inputer.readOnly = true;
       $.ajax({
-        url: '/startPackage.action?ajac=11',
+        url: '/startPackage.action?ajax=11',
         type: 'get',
         data: {
           traceNumStr: traceNumStr
@@ -296,7 +296,7 @@ ExternalJs.startPackage = function() {
             nums.length = 0;
             scanner.text.html('第 '+ count + ' 组装箱完成<br/><br/>继续装箱请扫码<br/>结束装箱请关闭');
           } else {
-            scanner.text.text(data.error);
+            scanner.text.html(data.error);
           }
         },
         error: function(){
