@@ -129,7 +129,7 @@ ExternalJs.addButtonToTopDialog = function() {
     }
   }
 };
-ExternalJs.scan = function(callback) {
+ExternalJs.scan = function(callback, onclose) {
   var scanner = $('<div class="scanner">' +
       '  <div class="scan-main">' +
       '    <a class="close">&times;</a>' +
@@ -142,7 +142,13 @@ ExternalJs.scan = function(callback) {
       '</div>').appendTo('body');
   var scanText = scanner.find('.scan-text');
   scanner.find('a.close').on('click', function() {
-    scanner.remove();
+    if(onclose) {
+      onclose(function() {
+        scanner.remove();  
+      });
+    } else {
+      scanner.remove();  
+    }
   });
   scanner.find('input').on('blur', function() {
     $(this).focus();
@@ -215,6 +221,69 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
           scanner.text.text('等待扫描二维码');
         } else {
           scanner.text.text(data.msg);
+        }
+      }
+    });
+  });
+};
+
+ExternalJs.boxOutBoundScan = function(jqid, addUrl) {
+  // 成品出库单
+  // 出库完成时，请关闭对话框
+  // 发起ajax请求，轮询，后端会返回5条数据，扫描框也会有
+  var layOutBody = $('.panel.window .layout-body');
+  var stockOutNum = layOutBody.find('input[name$="goodsStockOut.stockOutNum"]');
+  var device = layOutBody.find('input[name$="device"]');
+  $.ajax({
+    url: '/getPackageByDevice.action?ajax=11',
+    type: 'get',
+    data: {
+      stockOutNum: stockOutNum.val(),
+      deviceId: device.val()
+    },
+    dataType: 'json',
+    success: function(data) {
+      if(data.flag === 1) {
+        data.data.forEach(function(d) {
+          $(jqid).datagrid('l_appendRow', d);
+        });
+      }
+    }
+  });
+  ExternalJs.scan(function(num) {
+    var scanner = this;
+    $.ajax({
+      url: addUrl,
+      type: 'get',
+      data: {
+        originalTraceNum: num
+      },
+      dataType: 'jsonp',
+      success: function(data) {
+        if(data.flag === 1) {
+          $(jqid).datagrid('l_appendRow', data.data);
+          scanner.text.html('等待扫描二维码...<br/><br/>出库完成时，请关闭对话框');
+        } else {
+          scanner.text.text(data.msg);
+        }
+      }
+    });
+  }, function(onfinish) {
+    $.ajax({
+      url: '/getPackageByDevice.action?ajax=11',
+      type: 'get',
+      data: {
+        stockOutNum: stockOutNum.val(),
+        deviceId: device.val(),
+        end: 1,
+      },
+      dataType: 'jsonp',
+      success: function(data) {
+        if(data.flag === 1) {
+          data.data.forEach(function(d) {
+            $(jqid).datagrid('l_appendRow', d);
+          });
+          onfinish && onfinish();
         }
       }
     });
