@@ -287,10 +287,10 @@ ExternalJs.startPackage = function() {
       return;
     }
     nums.push(num);
-    scanner.text.html('第' + (count+1) + '组<br/><br/>' + nums.join('<br/>'));
+    scanner.text.html('第' + (count+1) + '组<br/><br/>' + nums.join('<br/>') + (nums.length === 5 ? '<br/><br/>请放置FID标签' : ''));
     if(nums.length === 5) {
       var traceNumStr = nums.join(',');
-      scanner.inputer.readOnly = true;
+      scanner.inputer.disabled = true;
       $.ajax({
         url: '/startPackage.action?ajax=11',
         type: 'post',
@@ -299,7 +299,6 @@ ExternalJs.startPackage = function() {
         },
         dataType: 'json',
         success: function(data) {
-          scanner.inputer.readOnly = false;
           if(data.flag === 1) {
             count++;
             total = total.concat(nums);
@@ -315,6 +314,9 @@ ExternalJs.startPackage = function() {
           alert('网络错误，数据传输失败，该组请重新扫描！');
           nums.length = 0;
           scanner.inputer.focus();
+        },
+        complete: function(){
+          scanner.inputer.disabled = false;
         }
       });
     }
