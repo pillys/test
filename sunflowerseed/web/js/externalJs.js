@@ -279,9 +279,10 @@ ExternalJs.startPackage = function() {
   //startPackage.action?ajac=11&traceNumStr=
   var count = 0;
   var nums = [];
+  var total = [];
   ExternalJs.scan(function(num) {
     var scanner = this;
-    if(nums.indexOf(num) !== -1) {
+    if(total.indexOf(num) !== -1 || nums.indexOf(num) !== -1) {
       scanner.text.html('第' + (count+1) + '组<br/><br/>' + nums.join('<br/>'));
       return;
     }
@@ -301,11 +302,11 @@ ExternalJs.startPackage = function() {
           scanner.inputer.readOnly = false;
           if(data.flag === 1) {
             count++;
+            total = total.concat(nums);
             nums.length = 0;
             scanner.text.html('第 '+ count + ' 组装箱完成<br/><br/>继续装箱请扫码<br/>结束装箱请关闭');
           } else {
             scanner.text.html(data.error);
-            alert('该组请重新扫描！');
             nums.length = 0;
             scanner.inputer.focus();
           }
