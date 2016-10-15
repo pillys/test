@@ -227,7 +227,7 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
   });
 };
 
-ExternalJs.boxOutBoundScan = function(jqid, addUrl) {
+ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
   // 成品出库单
   // 出库完成时，请关闭对话框
   // 发起ajax请求，轮询，后端会返回5条数据，扫描框也会有
@@ -283,7 +283,8 @@ ExternalJs.boxOutBoundScan = function(jqid, addUrl) {
           data.data.forEach(function(d) {
             $(jqid).datagrid('l_appendRow', d);
           });
-          onfinish && onfinish();
+          onfinish && onfin[]
+          ish();
         }
       }
     });
