@@ -277,6 +277,9 @@ ExternalJs.startPackage = function() {
   var nums = [];
   ExternalJs.scan(function(num) {
     var scanner = this;
+    if(nums.indexOf(num) !== -1) {
+      return;
+    }
     nums.push(num);
     scanner.text.html(nums.join('<br/>'));
     if(nums.length === 5) {
