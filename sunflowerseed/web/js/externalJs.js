@@ -283,8 +283,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
           data.data.forEach(function(d) {
             $(jqid).datagrid('l_appendRow', d);
           });
-          onfinish && onfin[]
-          ish();
+          onfinish && onfinish();
         }
       }
     });
