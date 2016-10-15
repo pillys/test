@@ -296,7 +296,7 @@ ExternalJs.startPackage = function() {
             nums.length = 0;
             scanner.text.html('第 '+ count + ' 组装箱完成<br/><br/>继续装箱请扫码<br/>结束装箱请关闭');
           } else {
-            scanner.text.text(data.msg);
+            scanner.text.text(data.error);
           }
         },
         error: function(){
