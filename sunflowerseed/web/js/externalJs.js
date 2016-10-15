@@ -278,11 +278,11 @@ ExternalJs.startPackage = function() {
   ExternalJs.scan(function(num) {
     var scanner = this;
     if(nums.indexOf(num) !== -1) {
-      scanner.text.html(nums.join('<br/>'));
+      scanner.text.html('第' + (count+1) + '组<br/>' + nums.join('<br/>'));
       return;
     }
     nums.push(num);
-    scanner.text.html(nums.join('<br/>'));
+    scanner.text.html('第' + (count+1) + '组<br/>' + nums.join('<br/>'));
     if(nums.length === 5) {
       var traceNumStr = nums.join(',');
       scanner.inputer.readOnly = true;
@@ -309,7 +309,6 @@ ExternalJs.startPackage = function() {
         }
       });
     }
-    
   });
 };
 
