@@ -233,7 +233,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
   // 发起ajax请求，轮询，后端会返回5条数据，扫描框也会有
   var layOutBody = $('.panel.window .layout-body');
   var stockOutNum = layOutBody.find('input[name$="goodsStockOut.stockOutNum"]');
-  var device = layOutBody.find('select[name$="device"]');
+  var device = layOutBody.find('select[name="device"]');
   if(!device.val()) {
     alert('请选择传送带！');
     return false;
