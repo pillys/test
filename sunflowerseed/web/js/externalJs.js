@@ -234,6 +234,10 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
   var layOutBody = $('.panel.window .layout-body');
   var stockOutNum = layOutBody.find('input[name$="goodsStockOut.stockOutNum"]');
   var device = layOutBody.find('input[name$="device"]');
+  if(!device.val()) {
+    alert('请选择传送带！');
+    return false;
+  }
   $.ajax({
     url: '/getPackageByDevice.action?ajax=11',
     type: 'get',
