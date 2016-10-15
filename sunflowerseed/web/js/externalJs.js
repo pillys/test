@@ -304,7 +304,8 @@ ExternalJs.startPackage = function() {
           }
         },
         error: function(){
-          alert('网络错误，请重试！');
+          alert('网络错误，数据传输失败，该组请重新扫描！');
+          nums.length = 0;
         }
       });
     }
