@@ -240,14 +240,17 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
   }
   var isActive = true;
   function loop() {
+    var data = {
+      stockOutNum: stockOutNum.val()
+    };
+    if(device.length > 0) {
+      data.deviceId = device.val();
+    }
     if(isActive) {
       $.ajax({
         url: '/getPackageByDevice.action?ajax=11',
         type: 'get',
-        data: {
-          stockOutNum: stockOutNum.val(),
-          deviceId: device.val()
-        },
+        data: data,
         dataType: 'json',
         success: function(data) {
           if(data.flag === 1) {
