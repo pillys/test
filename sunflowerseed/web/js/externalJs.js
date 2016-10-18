@@ -235,7 +235,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
   var stockOutNum = layOutBody.find('input[name$="goodsStockOut.stockOutNum"]');
   var device = layOutBody.find('select[name="device"]');
   if(!device.val()) {
-    alert('请选择传送带！');
+    vdialog.alert('请选择传送带！');
     return false;
   }
   var isActive = true;
