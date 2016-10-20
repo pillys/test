@@ -240,17 +240,14 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
   }
   var isActive = true;
   function loop() {
-    var data = {
-      stockOutNum: stockOutNum.val()
-    };
-    if(device.length > 0) {
-      data.deviceId = device.val();
-    }
     if(isActive) {
       $.ajax({
         url: '/getPackageByDevice.action?ajax=11',
         type: 'get',
-        data: data,
+        data: {
+          stockOutNum: stockOutNum.val(),
+          deviceId: device.val()
+        },
         dataType: 'json',
         success: function(data) {
           if(data.flag === 1) {
@@ -263,8 +260,9 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
       });
     }
   }
-
-  loop();
+  if(device.length > 0) {
+    loop();
+  }
   
   ExternalJs.scan(function(num) {
     var scanner = this;
