@@ -234,7 +234,8 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
   var layOutBody = $('.panel.window .layout-body');
   var stockOutNum = layOutBody.find('input[name$="goodsStockOut.stockOutNum"]');
   var device = layOutBody.find('select[name="device"]');
-  if(device.length > 0 && !device.val()) {
+  var hasDevice = device.length > 0;
+  if(hasDevice && !device.val()) {
     vdialog.alert('请选择传送带！');
     return false;
   }
@@ -260,9 +261,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
       });
     }
   }
-  if(device.length > 0) {
-    loop();
-  }
+  hasDevice && loop();
   
   ExternalJs.scan(function(num) {
     var scanner = this;
@@ -283,25 +282,29 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
       }
     });
   }, function(onfinish) {
-    $.ajax({
-      url: '/getPackageByDevice.action?ajax=11',
-      type: 'get',
-      data: {
-        stockOutNum: stockOutNum.val(),
-        deviceId: device.val(),
-        end: 1,
-      },
-      dataType: 'jsonp',
-      success: function(data) {
-        if(data.flag === 1) {
-          data.data.forEach(function(d) {
-            $(jqid).datagrid('l_appendRow', d);
-          });
-          isActive = false;
-          onfinish && onfinish();
+    if(hasDevice) {
+      $.ajax({
+        url: '/getPackageByDevice.action?ajax=11',
+        type: 'get',
+        data: {
+          stockOutNum: stockOutNum.val(),
+          deviceId: device.val(),
+          end: 1,
+        },
+        dataType: 'jsonp',
+        success: function(data) {
+          if(data.flag === 1) {
+            data.data.forEach(function(d) {
+              $(jqid).datagrid('l_appendRow', d);
+            });
+            isActive = false;
+            onfinish && onfinish();
+          }
         }
-      }
-    });
+      });
+    } else {
+      onfinish && onfinish();
+    }
   });
 };
 
