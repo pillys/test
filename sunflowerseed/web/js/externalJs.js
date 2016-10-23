@@ -254,7 +254,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl, type) {
           stockNum: stockNum.val(),
           device: device.val()
         },
-        dataType: 'jsonp',
+        dataType: 'json',
         success: function(data) {
           if(data.flag === 1) {
             data.data.forEach(function(d) {
