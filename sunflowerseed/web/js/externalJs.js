@@ -260,7 +260,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl, type) {
             data.data.forEach(function(d) {
               $(jqid).datagrid('l_appendRow', d);
             });
-            setTimeout(loop, 1000);
+            setTimeout(loop, 2000);
           }
         }
       });
