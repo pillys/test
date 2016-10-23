@@ -144,10 +144,10 @@ ExternalJs.scan = function(callback, onclose) {
   scanner.find('a.close').on('click', function() {
     if(onclose) {
       onclose(function() {
-        scanner.remove();  
+        scanner.remove();
       });
     } else {
-      scanner.remove();  
+      scanner.remove();
     }
   });
   scanner.find('input').on('blur', function() {

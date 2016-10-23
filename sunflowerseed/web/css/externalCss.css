@@ -2317,6 +2317,9 @@
   margin-top: 50px;
   text-align: center;
   color: #eee;
+  word-break: break-all;
+  word-wrap: break-word;
+  padding: 0 1em;
 }
 .scanner .scan-main .scan-box .line {
   position: absolute;
