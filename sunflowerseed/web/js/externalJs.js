@@ -379,7 +379,7 @@ ExternalJs.startPackage = function() {
       return;
     }
     nums.push(num);
-    scanner.text.html('第' + (count+1) + '组<br/><br/>' + nums.join('<br/>') + (nums.length === 5 ? '<br/><br/>请放置FID标签' : ''));
+    scanner.text.html('第' + (count+1) + '组<br/><br/>' + nums.join('<br/>') + (nums.length === 5 ? '<br/><br/>请放置RFID标签' : ''));
     if(nums.length === 5) {
       var traceNumStr = nums.join(',');
       scanner.inputer.disabled = true;
