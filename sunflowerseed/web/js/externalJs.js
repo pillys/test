@@ -227,12 +227,17 @@ ExternalJs.DataGrid.AppendRow = function(jqid, url) {
   });
 };
 
-ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
+ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl, type) {
   // 成品出库单
   // 出库完成时，请关闭对话框
   // 发起ajax请求，轮询，后端会返回5条数据，扫描框也会有
   var layOutBody = $('.panel.window .layout-body');
-  var stockOutNum = layOutBody.find('input[name$="goodsStockOut.stockOutNum"]');
+  var stockNum;
+  if(type === 'out') {
+    stockNum = layOutBody.find('input[name$="goodsStockOut.stockOutNum"]');
+  } else {
+    stockNum = layOutBody.find('input[name$="goodsStockIn.stockInNum"]');
+  }
   var device = layOutBody.find('select[name="device"]');
   var hasDevice = device.length > 0;
   if(hasDevice && !device.val()) {
@@ -246,8 +251,8 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
         url: '/getPackageByDevice.action?ajax=11',
         type: 'get',
         data: {
-          stockOutNum: stockOutNum.val(),
-          deviceId: device.val()
+          stockNum: stockNum.val(),
+          device: device.val()
         },
         dataType: 'jsonp',
         success: function(data) {
@@ -287,8 +292,8 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
         url: '/getPackageByDevice.action?ajax=11',
         type: 'get',
         data: {
-          stockOutNum: stockOutNum.val(),
-          deviceId: device.val(),
+          stockNum: stockNum.val(),
+          device: device.val(),
           end: 1,
         },
         dataType: 'json',
