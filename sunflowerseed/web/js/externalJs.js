@@ -248,7 +248,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl, type) {
   function loop() {
     if(isActive) {
       $.ajax({
-        url: '/getPackageByDevice.action?ajax=11',
+        url: '/getPackageByDevice.action?ajax=10',
         type: 'get',
         data: {
           stockNum: stockNum.val(),
