@@ -249,7 +249,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
           stockOutNum: stockOutNum.val(),
           deviceId: device.val()
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function(data) {
           if(data.flag === 1) {
             data.data.forEach(function(d) {
@@ -291,7 +291,7 @@ ExternalJs.DataGrid.boxOutBoundScan = function(jqid, addUrl) {
           deviceId: device.val(),
           end: 1,
         },
-        dataType: 'jsonp',
+        dataType: 'json',
         success: function(data) {
           if(data.flag === 1) {
             data.data.forEach(function(d) {
