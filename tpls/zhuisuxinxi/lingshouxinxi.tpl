@@ -12,7 +12,7 @@
 </div>
 
 <div class="pages navbar-through">
-  <div data-page="zhuisuxinxi-wuliuxinxi" class="page page-zhuisuxinxi-wuliuxinxi">
+  <div data-page="zhuisuxinxi-lingshouxinxi" class="page page-zhuisuxinxi-lingshouxinxi">
     <div class="page-content">
       <?if(@_.length > 0 && @_[0]) {?>
         <div class="content thumb">
@@ -20,11 +20,17 @@
         </div>
       <?}?>
       <div class="content">
-        <h2>零售信息</h2>
-        <div class="content-title">aaa</div>
-        <div class="content-detail">
-          bbb
-        </div>
+        <?if(@data.length > 0 && @data[0]) {
+            var data = @data[0];
+            data.forEach(function(item){
+        ?>
+            <div class="content-title"><?=item.key?></div>
+            <div class="content-detail">
+              <?=item.value?>
+            </div>
+        <?  });
+          }
+        ?>
       </div>
     </div>
   </div>

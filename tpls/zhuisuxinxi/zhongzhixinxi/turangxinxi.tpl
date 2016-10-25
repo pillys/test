@@ -15,10 +15,21 @@
   <div data-page="zhuisuxinxi-zhongzhixinxi-turangxinxi" class="page page-zhuisuxinxi-zhongzhixinxi-turangxinxi">
     <div class="page-content">
       <div class="content">
-        <div class="content-title">aaa</div>
-        <div class="content-detail">
-          bbb
-        </div>
+        <?if(@data.length > 0 && @data[0]) {
+            var data = @data[0];
+            data.forEach(function(item){
+        ?>
+            <div class="content-title"><?=item.key?></div>
+            <div class="content-detail">
+              <?if(item.type === 'map') {?>
+                <a href="<?=@webRoot?>/sunflowerseed/app/map.html?q=<?=item.value?>" class="external"><i class="fa fa-map-marker"></i> 查看地图</a>
+              <?} else {?>
+                <?=item.value?>
+              <?}?>
+            </div>
+        <?  });
+          }
+        ?>
       </div>
     </div>
   </div>

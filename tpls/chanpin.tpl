@@ -1,8 +1,10 @@
-<!-- navbar -->
+<?
+  var traceNum = decodeURIComponent(@url[0].replace(/.*traceNum=([^&]*)/, '$1'));
+?>
 <div class="navbar">
   <div class="navbar-inner">
     <div class="left">
-      <a href="/tpls/index.tpl|/api/index.json" class="link back icon-only">
+      <a href="/tpls/index.tpl|<?=@apiRoot?>/banner.action" class="link back icon-only">
         <i class="fa fa-angle-left"></i>
       </a>
     </div>
@@ -11,7 +13,7 @@
     <!-- Sub navbar -->
     <div class="subnavbar">
       <div class="buttons-row">
-        <a href="/tpls/zhuisu.tpl|/api/zhuisu.json" class="button">追溯信息</a>
+        <a href="/tpls/zhuisu.tpl|<?=@apiRoot?>/traceSummarize.action?traceNum=<?=traceNum?>" class="button">追溯信息</a>
         <a href="#" class="button active">产品信息</a>
       </div>
     </div>

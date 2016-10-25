@@ -212,13 +212,6 @@
   background-color: #fff;
   padding: 10px;
 }
-.page-zhuisuxinxi-lingshouxinxi .page-content h2 {
-  font-size: 18px;
-  background-color: #fff;
-  padding-left: 10px;
-  margin: 0;
-  line-height: 40px;
-}
 /* 追溯信息-种植信息-农户介绍 */
 .page-zhuisuxinxi-zhongzhixinxi-nonghujieshao .page-content .content-title {
   background-color: #ebebeb;
@@ -227,4 +220,54 @@
 .page-zhuisuxinxi-zhongzhixinxi-nonghujieshao .page-content .content-detail {
   background-color: #fff;
   padding: 10px;
+}
+/* 追溯信息-种植信息-土壤信息 */
+.page-zhuisuxinxi-zhongzhixinxi-turangxinxi .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-zhongzhixinxi-turangxinxi .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+/* 追溯信息-种植信息-种子信息 */
+.page-zhuisuxinxi-zhongzhixinxi-zhongzixinxi .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-zhongzhixinxi-zhongzixinxi .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+/* 追溯信息-种植信息-栽培信息 */
+.page-zhuisuxinxi-zhongzhixinxi-zaipeixinxi .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-zhongzhixinxi-zaipeixinxi .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+.page-zhuisuxinxi-zhongzhixinxi-zaipeixinxi .page-content .content-detail .list-block {
+  margin: 0;
+}
+.page-zhuisuxinxi-zhongzhixinxi-zaipeixinxi .page-content .content-detail .list-block ul:before,
+.page-zhuisuxinxi-zhongzhixinxi-zaipeixinxi .page-content .content-detail .list-block ul:after {
+  display: none;
+}
+/* 罪数信息-种植信息-检验报告-查看*/
+.page-zhuisuxinxi-zhongzhixinxi-jianyanbaogao-view .page-content img {
+  width: 100%;
+}
+/* 追溯信息-种植信息-生长环境 */
+.page-zhuisuxinxi-zhongzhixinxi-shengzhanghuanjing .page-content .content-title {
+  background-color: #ebebeb;
+  padding: 5px 10px;
+}
+.page-zhuisuxinxi-zhongzhixinxi-shengzhanghuanjing .page-content .content-detail {
+  background-color: #fff;
+  padding: 10px;
+}
+.page-zhuisuxinxi-zhongzhixinxi-shengzhanghuanjing .page-content .content-detail .video-box {
+  text-align: center;
 }

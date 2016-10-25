@@ -6,26 +6,20 @@
         <i class="fa fa-angle-left"></i>
       </a>
     </div>
-    <div class="center sliding">种子信息</div>
+    <div class="center sliding">检验报告</div>
     <div class="right"></div>
   </div>
 </div>
 
 <div class="pages navbar-through">
-  <div data-page="zhuisuxinxi-zhongzhixinxi-zhongzixinxi" class="page page-zhuisuxinxi-zhongzhixinxi-zhongzixinxi">
+  <div data-page="zhuisuxinxi-zhongzhixinxi-jianyanbaogao-view" class="page page-zhuisuxinxi-zhongzhixinxi-jianyanbaogao-view">
     <div class="page-content">
       <div class="content">
         <?if(@_.length > 0 && @_[0]) {
-            var data = @data[0];
-            data.forEach(function(item){
+            var data = @_[0];
         ?>
-            <div class="content-title"><?=item.key?></div>
-            <div class="content-detail">
-              <?=item.value?>
-            </div>
-        <?  });
-          }
-        ?>
+          <img src="<?=data.thumb?>">
+        <?}?>
       </div>
     </div>
   </div>

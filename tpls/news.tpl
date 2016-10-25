@@ -6,35 +6,35 @@
         <i class="fa fa-angle-left"></i>
       </a>
     </div>
-    <div class="center sliding">检验报告</div>
+    <div class="center sliding">新闻动态</div>
     <div class="right"></div>
   </div>
 </div>
 
 <div class="pages navbar-through">
-  <div data-page="zhuisuxinxi-zhongzhixinxi-jianyanbaogao" class="page page-zhuisuxinxi-zhongzhixinxi-jianyanbaogao">
+  <div data-page="zhengcefagui" class="page page-zhengcefagui">
     <div class="page-content">
       <div class="content">
         <div class="list-block">
-          <ul>
-            <?if(@data.length > 0 && @data[0]) {
-                var data = @data[0];
-                data.forEach(function(item){
+          <?if(@data.length > 0 && @data[0]) {
+              var data = @data[0];
+          ?>
+            <ul>
+              <?data.forEach(function(item) {
                   var subdata = JSON.stringify({
-                    thumb: item.value
+                    title: item.title
                   });
-            ?>
+              ?>
                 <li>
-                  <a href="/tpls/zhuisuxinxi/zhongzhixinxi/jianyanbaogao-view.tpl|<?=subdata?>" class="item-link">
+                  <a href="/tpls/news/detail.tpl|<?=subdata?>|<?=@apiRoot?>/detailInfo.action?id=<?=item.id?>&category=<?=item.category?>" class="item-link">
                     <div class="item-content">
-                      <div class="item-inner"><?=item.key?></div>
+                      <div class="item-inner"><?=item.title?></div>
                     </div>
                   </a>
                 </li>
-            <?  });
-              }
-            ?>
-          </ul>
+              <?});?>
+            </ul>
+          <?}?>
         </div>
       </div>
     </div>

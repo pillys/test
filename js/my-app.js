@@ -1,3 +1,6 @@
+var apiRoot = 'http://202.85.222.47:8083';
+var webRoot = 'http://test.qque.com';
+var indexPageUrl = '/tpls/index.tpl|'+ apiRoot + '/banner.action';
 var myApp = new Framework7({
   pushState: true,
   animateNavBackIcon: true,
@@ -22,7 +25,10 @@ var myApp = new Framework7({
       });
       var result = {
         _: options,
-        data: []
+        data: [],
+        url: [],
+        apiRoot: apiRoot,
+        webRoot: webRoot
       };
       var i = apis.length;
       (function async() {
@@ -43,10 +49,12 @@ var myApp = new Framework7({
               } else {
                 result.data.push(null);
               }
+              result.url.push(api);
               async();
             },
             error: function() {
               result.data.push(null);
+              result.url.push(api);
               async();
             }
           });
@@ -88,11 +96,10 @@ myApp.onPageInit('zhuisu', function (page) {
   
 });
 
-if(isWeixin) {
+/*if(isWeixin) {
   mainView.hideNavbar();
   $$('.navbar-through').removeClass('navbar-through').addClass('no-navbar');
-}
-
+}*/
 if (location.hash === '') {
-  mainView.router.loadPage('/tpls/index.tpl|/api/index.json');
+  mainView.router.loadPage(indexPageUrl);
 }

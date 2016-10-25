@@ -20,11 +20,17 @@
         </div>
       <?}?>
       <div class="content">
-        <h2>基本信息</h2>
-        <div class="content-title">aaa</div>
-        <div class="content-detail">
-          bbb
-        </div>
+        <?if(@data.length > 0 && @data[0]) {
+            var data = @data[0];
+            data.forEach(function(item){
+        ?>
+            <div class="content-title"><?=item.key?></div>
+            <div class="content-detail">
+              <?=item.value?>
+            </div>
+        <?  });
+          }
+        ?>
       </div>
     </div>
   </div>

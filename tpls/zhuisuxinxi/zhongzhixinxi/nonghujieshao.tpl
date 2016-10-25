@@ -15,10 +15,17 @@
   <div data-page="zhuisuxinxi-zhongzhixinxi-nonghujieshao" class="page page-zhuisuxinxi-zhongzhixinxi-nonghujieshao">
     <div class="page-content">
       <div class="content">
-        <div class="content-title">aaa</div>
-        <div class="content-detail">
-          bbb
-        </div>
+        <?if(@_.length > 0 && @_[0]) {
+            var data = @data[0];
+            data.forEach(function(item){
+        ?>
+            <div class="content-title"><?=item.key?></div>
+            <div class="content-detail">
+              <?=item.value?>
+            </div>
+        <?  });
+          }
+        ?>
       </div>
     </div>
   </div>
