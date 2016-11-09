@@ -2253,7 +2253,7 @@
   padding: 10px;
   line-height: 45px;
   background-color: rgba(255,255,255,.2);
-  /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#33ffffff,endColorstr=#33ffffff)\0;*/
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#33ffffff,endColorstr=#33ffffff)\0;    /*IE8支持*/
   border-radius: 50%;
   overflow: hidden;
   vertical-align: middle;
@@ -2264,11 +2264,9 @@
   box-shadow: 0 0 5px 10px rgba(255,255,255,.2);
 }
 .www-index .flow a.flow-item .fa {
-  position: relative;
   display: block;
   font-size: 40px;
   text-align: center;
-  z-index: 1;
 }
 .www-index .flow .flow-right {
   font-size: 50px;
